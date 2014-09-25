@@ -512,9 +512,15 @@ var commands = exports.commands = {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/infnusion.gif"><br />')
             },
+	monop: 'monopoly',
 	monopoly: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/monoop.jpg"><br />')
+            },
+	liz: 'lizbith',
+	lizbith: function(target, room, user) {
+                    if(!this.canBroadcast()) return;
+                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/lizbith.jpg"><br />')
             },
 			
 	korps: function(target, room, user) {
