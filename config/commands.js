@@ -585,12 +585,7 @@ var commands = exports.commands = {
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/air.gif"><br />' +
                                       '<font color=black><b>"I get my own trainer card!?"</b></font>')
             },
-	sys: function(target, room, user) {
-                    if(!this.canBroadcast()) return;
-                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/sys.jpg"><br />' +
-                                      '<font size=3><font color=bllack><b>Eye Contact: Literally Impossible.</b></font><br />' +
-									  '<b><blink>Ace: Punishment.</blink></b><br />')
-            },
+	
 	
 	troll: function(target, room, user) {
                     if(!this.canBroadcast()) return;
