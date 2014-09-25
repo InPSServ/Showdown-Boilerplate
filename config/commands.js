@@ -520,7 +520,8 @@ var commands = exports.commands = {
 	liz: 'lizbith',
 	lizbith: function(target, room, user) {
                     if(!this.canBroadcast()) return;
-                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/lizbith.jpg"><br />')
+                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/lizbith.jpg"><br /><br />' +
+									  '<img src="http://107.161.19.92:8000/TCs/lizbith2.jpg"><br /><br />')
             },
 			
 	korps: function(target, room, user) {
