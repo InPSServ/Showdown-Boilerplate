@@ -103,7 +103,7 @@ try {
 
 	        var user = toId(path.basename(file, ext));
 	        newCustomAvatars[user] = file;
-	        delete Config.customAvatars[user];
+	        
 	    });
 
 	    // Make sure the manually entered avatars exist
