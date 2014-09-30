@@ -68,7 +68,7 @@ var core = exports.core = {
 
         color: '#2ECC40',
 
-        avatarurl: 'http://107.161.19.15:8000',
+        avatarurl: 'http://107.161.19.92:8000',
 
         avatar: function (online, user, img) {
             if (online === true) {
@@ -258,7 +258,7 @@ var core = exports.core = {
             ['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 100],
 			['Félicette', 'Backdoor Access: Félicette! Back by popular demand!', 1],
 			['Newts', 'Newts of jd/Okguy/Tailz/Kammi/Peppa/Félicette/Inky/alaskaa/lizbith/Chakra etc. Credit: SpenyEX', 3]
-			
+
         ];
 
         if (showDisplay === false) {
@@ -363,7 +363,7 @@ var core = exports.core = {
 
     processChatData: function (user, room, connection, message) {
         var match = false;
-        
+
         for (var i in this.emoticons) {
             if (message.indexOf(i) >= 0) {
                 match = true;
