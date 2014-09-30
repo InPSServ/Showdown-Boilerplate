@@ -503,6 +503,33 @@ exports.BattleFormats = {
 			}
 		}
 	},
+	
+	haxclause: {
+        effectType: 'Rule',
+        onStart: function() {
+                this.add('rule', 'Hax Clause');
+        },
+        onModifyMovePriority: -100,
+        onModifyMove: function(move) {
+        if (move.secondaries) {
+                for (var s = 0; s < move.secondaries.length; ++s) {
+                        move.secondaries[s].chance = 100;
+                }
+        }
+        if (move.accuracy !== true && move.accuracy <= 99) {
+                move.accuracy = 0;
+                if (move.name.indexOf(' ') > -1) {
+                        var moveName = move.name.split(' ');
+                        moveName[1] = 'Miss';
+                        move.name = moveName[0] + ' ' + moveName[1];
+                } else {
+                        move.name = move.name.substr(0, move.name.length-2) + 'fail';
+                }
+        }
+                move.willCrit = true;
+        }
+},	
+	
 	sametypeclause: {
 		effectType: 'Rule',
 		onStart: function () {
