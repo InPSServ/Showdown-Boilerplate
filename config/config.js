@@ -100,7 +100,7 @@ exports.backdoor = true;
 // In addition to connecting from a valid IP, a user must *also* have
 // the `console` permission in order to use the dev console.
 // Setting this to an empty array ([]) will disable the dev console.
-exports.consoleips = ['71.204.127.49'];
+exports.consoleips = ['71.204.127.49', '127.0.0.1'];
 
 // Whether to watch the config file for changes. If this is enabled,
 // then the config.js file will be reloaded when it is changed.
@@ -137,7 +137,7 @@ exports.herokuhack = false;
 //
 // Your server *must* be registered in order for your custom avatars to be
 // displayed in the client.
-exports.customAvatars = {'hashtagarmcannons': 'hashtagarmcannons.gif', 'absolutemaximum': 'absolutemaximum.gif', 'shedinjanigans': 'shedinjanigans.gif', 'dabicboi': 'dabicboi.png' 
+exports.customAvatars = {'hashtagarmcannons': 'hashtagarmcannons.gif', 'absolutemaximum': 'absolutemaximum.gif', 'shedinjanigans': 'shedinjanigans.gif', 'dabicboi': 'dabicboi.png'
 	//'userid': 'customavatar.png'
 };
 
@@ -174,7 +174,6 @@ exports.appealurl = '';
 //     - mute: Muting and unmuting.
 //     - receivemutedpms: Receive PMs from muted users.
 //     - forcerename: /fr command.
-//     - forcerenameto: /frt command.
 //     - redirect: /redir command.
 //     - ip: IP checking.
 //     - alts: Alt checking.

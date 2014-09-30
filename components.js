@@ -788,6 +788,8 @@ var components = exports.components = {
 
     clearall: function (target, room, user) {
         if (!this.can('clearall')) return;
+        if (room.battle) return this.sendReply('You cannot do it on battle rooms.');
+        
         var len = room.log.length,
             users = [];
         while (len--) {

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Commands
  * Pokemon Showdown - https://pokemonshowdown.com/
  *
@@ -171,14 +171,12 @@ var commands = exports.commands = {
 		if (!targetUser) {
 			return this.sendReply("User " + this.targetUsername + " not found.");
 		}
-		var a = targetUser.name;
-                    if (a == "Da Bic Boi" || a == "Da Bic Boi - Ⓐⓦⓐⓨ" || a == "Infinite Bot" || a == "Infinite Bot - Ⓐⓦⓐⓨ" || a == "Infinite DDP Bot" || a== "Infinite DDP Bot - Ⓐⓦⓐⓨ" || a == "Not Da Bic Boi" || a == "Connor the Poodra" || a== "Not Da Bic Boi - Ⓐⓦⓐⓨ" ) {
-                            return this.sendReply('ACCESS DENIED.');
-                            }
+		var blockWhois = {'dabicboi': 1, 'infinitebot': 1, 'infiniteddpbot': 1, 'notdabicboi': 1, 'connorthepoodra': 1};
+		if (blockWhois[targetUser.userid]) return this.sendReply("ACCESS DENIED.");
 
 		this.sendReply("User: " + targetUser.name);
 		if (user.can('alts', targetUser)) {
-			var alts = targetUser.getAlts();
+			var alts = targetUser.getAlts(true);
 			var output = Object.keys(targetUser.prevNames).join(", ");
 			if (output) this.sendReply("Previous names: " + output);
 
@@ -190,6 +188,9 @@ var commands = exports.commands = {
 				this.sendReply("Alt: " + targetAlt.name);
 				output = Object.keys(targetAlt.prevNames).join(", ");
 				if (output) this.sendReply("Previous names: " + output);
+			}
+			if (targetUser.locked) {
+				this.sendReply("Locked under the username: "+targetUser.locked);
 			}
 		}
 		if (Config.groups[targetUser.group] && Config.groups[targetUser.group].name) {
@@ -247,6 +248,7 @@ var commands = exports.commands = {
 		}
 		return this.parse('/msg ' + this.targetUsername + ', /invite ' + roomid);
 	},
+
 	tpoll: 'tiervote',
 	tierpoll: 'tiervote',
 	tiervote: function(target, room, user){
@@ -254,11 +256,11 @@ var commands = exports.commands = {
 	},
 	hv: 'helpvotes',
         helpvotes: function(room, user, cmd){
-                return this.parse('/wall Remember to **vote** even if you don\'t want to battle; that way you\'re still voting for what tier battles you want to watch!');     
+                return this.parse('/wall Remember to **vote** even if you don\'t want to battle; that way you\'re still voting for what tier battles you want to watch!');
         },
 	abuse: 'aboose',
         aboose: function(room, user, cmd){
-                return this.parse('/pm Chakra, http://107.161.19.92:8000/TCs/spam.jpg');     
+                return this.parse('/pm Chakra, http://107.161.19.92:8000/TCs/spam.jpg');
         },
 	dong: 'dongshare',
         dongshare: (function () {
@@ -273,7 +275,7 @@ var commands = exports.commands = {
         ];
 
         return function (target, room, user) {
-            
+
             var selecteddong = target || randomdong[Math.floor(Math.random() * randomdong.length)];
             if (!this.canTalk(selecteddong)) return false;
 			return this.parse(selecteddong);
@@ -293,7 +295,7 @@ var commands = exports.commands = {
         ];
 
         return function (target, room, user) {
-            
+
             var selecteddong2 = target || randomdong2[Math.floor(Math.random() * randomdong2.length)];
             if (!this.canTalk(selecteddong2)) return false;
 			return this.parse(selecteddong2);
@@ -313,7 +315,7 @@ var commands = exports.commands = {
         ];
 
         return function (target, room, user) {
-            
+
             var selecteddong3 = target || randomdong3[Math.floor(Math.random() * randomdong3.length)];
             if (!this.canTalk(selecteddong3)) return false;
 			return this.parse(selecteddong3);
@@ -329,28 +331,28 @@ var commands = exports.commands = {
             },
 	crie: 'caboose',
         caboose: function(room, user, cmd){
-                return this.parse('/pm MadAsTheHatter, /me spanks MadAsTheHatter!');     
+                return this.parse('/pm MadAsTheHatter, /me spanks MadAsTheHatter!');
         },
 	crie2: 'caboose2',
         caboose2: function(room, user, cmd){
-                return this.parse('/pm MadAsTheHatter, /me spanks MadAsTheHatter!!');     
+                return this.parse('/pm MadAsTheHatter, /me spanks MadAsTheHatter!!');
         },
 	chakyowner: 'ownchak',
         ownchak: function(room, user, cmd){
-                return this.parse('/pm Chakra, Users that own Chakra: Koikazma, Assault Vest Tangela, Chakra\'s hoe, Chakra\'s Mother, Chakra\'s Nan, Chakra\'s Son, Chakra\'s Cat, Mr. Wafflez, Chakra\'s Lover, Chakra\'s Paramour, I am Tory.');     
+                return this.parse('/pm Chakra, Users that own Chakra: Koikazma, Assault Vest Tangela, Chakra\'s hoe, Chakra\'s Mother, Chakra\'s Nan, Chakra\'s Son, Chakra\'s Cat, Mr. Wafflez, Chakra\'s Lover, Chakra\'s Paramour, I am Tory.');
         },
-	
+
 	spank: function(target, room, user){
 		if(!target) return this.sendReply('/spank needs a target.');
 		return this.parse('/me spanks ' + target + '!');
 	},
-	
+
     Evil:'evil',
 	evil: function(target, room, user) {
                         if(!this.canBroadcast()) return;
                         this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/Evil.gif"> <br> <font size="4"><b><i><font color="#9C0D0D">Evil-kun</i><br></font><b> <blink> Ace: Dis is an ivol zing </blink></b><br><b>Elmo sabe donde vives...</b></center>')
                 },
-				
+
 	ac:'armcannons',
 	armcannons: function(target, room, user) {
                         if(!this.canBroadcast()) return;
@@ -363,7 +365,7 @@ var commands = exports.commands = {
 	mandy: function(target, room, user)
         {if (!this.canBroadcast()) return false;
         return this.sendReplyBox(' <center> <img src="http://107.161.19.92:8000/TCs/mandy.gif"> <br> <font size="3"><b><i><font color="99FFFF">Mandy</i><br></font><b> <blink> Ace: I\'m kawaii bitch ^.~ </blink></b> <br><b>Cant handle my Cutness</b></center>');
-        },				
+        },
 	ac2:'armcannons2',
 	armcannons2: function(target, room, user) {
                         if(!this.canBroadcast()) return;
@@ -397,7 +399,7 @@ var commands = exports.commands = {
                                       '<b><blink>Ace: Diabeetus</blink></b><br />' +
                                       '<b>#tryhard</b>')
             },
-	
+
 	max: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/max.jpg"><br />' +
@@ -416,17 +418,17 @@ var commands = exports.commands = {
         {if (!this.canBroadcast()) return false;
         return this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/lasers.gif"> <br> <font size="3"><b><i><font color="8000FF">Lasurs</i><br></font><b> <blink> PEWPEWPEW WITH ME SENPAI ARHFRJGHJHJKDF </blink></b> <br><b>Ace: Godly Instrument</b></center>');
         },
-	
+
 	cleer: function(target, room, user) {
 	if (!user.can('ban')) return false;
 	this.add('|html|<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>')
 	},
-	
+
 	enzo: function(target, room, user)
         {if (!this.canBroadcast()) return false;
         return this.sendReplyBox('<center> <img src = " http://107.161.19.92:8000/TCs/enzo.gif"> <br> <font color=blue>  <font size="3"> <b><i>FranchescoEnzo</i><br></font> <font color=black> Quote: M8 I swer on me mam i\'ll rek u <br> <blink> <b> Ace: Reflexes </b>');
         },
-	
+
 	fatherj: 'davidj',
 	davidj: function(target, room, user)
         	{if (!this.canBroadcast()) return false;
@@ -438,7 +440,7 @@ var commands = exports.commands = {
         	{if (!this.canBroadcast()) return false;
         	return this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/silver.gif"> <br> <font size="3"><b><i><font color="00FF00">SilverKill</i><br></font><b>Show them all you\'re not the ordinary type.</b> <br><b><font color=FFBF00>Deal with it. (⌐■_■)</b></center>');
         },
-	
+
 	kevkev:'kevn',
 	kevn: function(target, room, user) {
 			if (!this.canBroadcast()) return;
@@ -469,7 +471,7 @@ var commands = exports.commands = {
                     if(!this.canBroadcast()) return;
 		    this.sendReplyBox('<center><a href="http://a.tumblr.com/tumblr_l6dyfyOTqx1qab7jvo1.mp3"> <img src="http://107.161.19.92:8000/TCs/frost.gif"/> </a><br><font size="3"><b><i><font color="blue">Frost</i><br></font><b><blink>Willpower</font></blink></b><br><font color="585858"><i>I\'ll never fall by the likes of people such as you.</i></center>')
             },
-	
+
 	twerk: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/gandhi.jpg" height="300" width="330"><br />' +
@@ -488,7 +490,7 @@ var commands = exports.commands = {
                                       '<img src="http://107.161.19.92:8000/TCs/yall2.png" height="250" width="180"> <font size=3><b><i><font color=gold>YallThirsty</font></i></b></font> <img src="http://107.161.19.92:8000/TCs/yall3.png" height="180" width="195"><br />' +
                                       '<b><blink>Ace: Charizard</blink></b><br />' +
                                       '<b>You All Are Thirsty!</b>')
-            },	
+            },
 	macrarazy: 'mac',
             e4mac: 'mac',
             e6mac: 'mac',
@@ -526,7 +528,7 @@ var commands = exports.commands = {
 									  '<img src="http://107.161.19.92:8000/TCs/lizbith4.jpg"><br /><br />' +
 									  '<img src="http://107.161.19.92:8000/TCs/lizbith5.jpg"><br /><br />')
             },
-			
+
 	korps: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><b><img src="http://107.161.19.92:8000/TCs/korps.gif"></a><br> <font size= 3> <i><font color = "blue"> Korps</i></font><br><blink> <b> I will find you.</blink> </b><br>“No matter where you go, I\'ll follow you. Because I love you."')
@@ -541,7 +543,7 @@ var commands = exports.commands = {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><a href="http://audio.radiorecord.ru/superchart/DJ%20SNAKE%20&%20LIL%20JOHN%20-%20Turn%20Down%20For%20What.mp3"> <img src="http://107.161.19.92:8000/TCs/tdf2.png" /> </a><br><font size="3"><b><i><font color="FF0000">#TD4W</i><br></font><b><blink>Turn Up MothaFuckas</font></blink></b><br><font color="585858"><i>Swag</i></center>')
             },
-		
+
 
     hue: 'BR',
 	br: 'BR',
@@ -566,7 +568,7 @@ var commands = exports.commands = {
             },
 	rotom: function(target, room, user) {
                     if(!this.canBroadcast()) return;
-                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/rotom.gif" height="250" width="250"><br />' 
+                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/rotom.gif" height="250" width="250"><br />'
                                       )
             },
 	taco: function(target, room, user) {
@@ -586,25 +588,25 @@ var commands = exports.commands = {
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/air.gif"><br />' +
                                       '<font color=black><b>"I get my own trainer card!?"</b></font>')
             },
-	
-	
+
+
 	troll: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/troll.jpg"><br />' +
                                       '<b>I will shit fury all over you and you will drown in it.</b><br />' +
 									  '<b>#swagmaster69</b>')
             },
-	
+
 	kfc: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/kfc.jpg" height="201" width="300"><br />' +
-                                      '<font size=3><i><font color=purple><b>Omega Supreme</b></font></i></font><br />' 
+                                      '<font size=3><i><font color=purple><b>Omega Supreme</b></font></i></font><br />'
                                       )
             },
 	newt68: function(target, room, user) {
                     if(!this.canBroadcast()) return;
-                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/newt.jpg"><br />' 
-                                      
+                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/newt.jpg"><br />'
+
                                       )
             },
 	bd: function(target, room, user) {
@@ -645,13 +647,13 @@ paper: function(target, room, user)
 peppa: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/peppa.gif/" height="251" width="375"><br />' +
-                                      '<font size=3><i><font color=pink><b>Peppa </b></font></i></font><i><font color=pink><b>Mint </b></font></i></font><br />' + 
-										'<font size=3><i><font color=pink><b>List of things Peppamint has said IRL: </b></font></i><br />' + 
+                                      '<font size=3><i><font color=pink><b>Peppa </b></font></i></font><i><font color=pink><b>Mint </b></font></i></font><br />' +
+										'<font size=3><i><font color=pink><b>List of things Peppamint has said IRL: </b></font></i><br />' +
 										'</font><i><font color=purple><b>"I spread my asscheeks for Shrek" 8/16/2014 </b></font></i></font><br />' +
 										'</font><i><font color=purple><b>"Where\'s Picopie? What!? He\'s jacking off!?" 8/16/2014 </b></font></i></font><br />'	+
-										'</font><i><font color=purple><b>"Why is it so long!?" 9/10/2014 </b></font></i></font><br />'										
+										'</font><i><font color=purple><b>"Why is it so long!?" 9/10/2014 </b></font></i></font><br />'
                                       )
-            },	
+            },
 	  giant: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/giant.gif"><br />' +
@@ -659,14 +661,14 @@ peppa: function(target, room, user) {
                                       '<b><blink>Ace: Iron Giant</blink></b><br />' +
                                       '<b>I sweep girls off their feet like i do with your team m8; easily</b>')
             },
-				
+
 	kafka: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/kafka.gif"><br />' +
                                       '<font size=3><i><font color=33FF33><b>Kafka</b></font></i></font><br />' +
                                       '<b><blink>Ace: Shimmy</blink></b><br />' +
                                       '<b>Now stop, OH, then wiggle with it, YEAH!</b>')
-            },  
+            },
     fel:'felicette',
 	felicette: function(target, room, user)
             {if (!this.canBroadcast()) return false;
@@ -685,7 +687,7 @@ peppa: function(target, room, user) {
                                       '<font size=3><i><font color=7A770C><b>Sacrisis</b></font></i></font><br />' +
                                       '<b><blink>Ace: When you get those hax</blink></b>' +
                                       '<br><b>Make dat booty werk</b>')
-            },	
+            },
 	quil:'quilaava',
 	quilaava: function(target, room, user) {
 			if (!this.canBroadcast()) return;
@@ -708,12 +710,12 @@ ralph: function(target, room, user)
         return this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/ralph.gif"> <br> <font size="3"><b><i><font color="B2C248">Ralphonso</i><br></font><b> <blink> Ace: I GOT DAT <i> Canadian </i> HARD BODY </blink></b> <br> #getripped </center>');
         },
 
-connor: 'goodra',        
+connor: 'goodra',
 goodra: function(target, room, user)
         {if (!this.canBroadcast()) return false;
         return this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/connor.gif"> <br> <font size="3"><b><i><font color="0404B4">Connor the Goodra</i><br></font><b> <font color="8A0886">  Ace: The comfort of the bonfire </b> <br><b> <font color="190707"> <blink> Lol you\'re a scrub </b></center>');
         },
-	
+
 
     ninkay: 'inky',
     inky: function(target, room, user)
@@ -805,7 +807,7 @@ goodra: function(target, room, user)
 			} else if (newTargets[0].searchType === 'move') {
 				var move = Tools.getMove(newTargets[0].name);
 				details = {
-					"Priority": move.priority,
+					"Priority": move.priority
 				};
 
 				if (move.secondary || move.secondaries) details["<font color=black>&#10003; Secondary Effect</font>"] = "";
@@ -862,7 +864,7 @@ goodra: function(target, room, user)
 		if (!target) return this.parse('/help dexsearch');
 		var targets = target.split(',');
 		var searches = {};
-		var allTiers = {'uber':1, 'ou':1, 'uu':1, 'lc':1, 'cap':1, 'bl':1, 'bl2':1, 'ru':1, 'bl3':1, 'nu':1};
+		var allTiers = {'uber':1, 'ou':1, 'uu':1, 'lc':1, 'cap':1, 'bl':1, 'bl2':1, 'ru':1, 'bl3':1, 'nu':1, 'pu':1};
 		var allColours = {'green':1, 'red':1, 'blue':1, 'white':1, 'brown':1, 'yellow':1, 'purple':1, 'pink':1, 'gray':1, 'black':1};
 		var showAll = false;
 		var megaSearch = null;
@@ -1175,7 +1177,7 @@ goodra: function(target, room, user)
 				immunities.push(type);
 			}
 		});
- 
+
 		var buffer = [];
 		buffer.push(pokemon.exists ? "" + target + ' (ignoring abilities):' : '' + target + ':');
 		buffer.push('<span class=\"message-effect-weak\">Weaknesses</span>: ' + (weaknesses.join(', ') || 'None'));
@@ -1347,8 +1349,8 @@ goodra: function(target, room, user)
 			"An introduction to the Create-A-Pokemon project:<br />" +
 			"- <a href=\"https://www.smogon.com/cap/\">CAP project website and description</a><br />" +
 			"- <a href=\"https://www.smogon.com/forums/showthread.php?t=48782\">What Pokemon have been made?</a><br />" +
-			"- <a href=\"https://www.smogon.com/forums/showthread.php?t=3464513\">Talk about the metagame here</a><br />" +
-			"- <a href=\"https://www.smogon.com/forums/showthread.php?t=3466826\">Practice BW CAP teams</a>"
+			"- <a href=\"https://www.smogon.com/forums/forums/311\">Talk about the metagame here</a><br />" +
+			"- <a href=\"https://www.smogon.com/forums/threads/3512318/#post-5594694\">Sample XY CAP teams</a>"
 		);
 	},
 
@@ -1369,87 +1371,99 @@ goodra: function(target, room, user)
 		target = toId(target);
 		var buffer = "";
 		var matched = false;
-		if (!target || target === 'all') {
+		if (!target) {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/forums/206/\">Other Metagames Forum</a><br />";
-			if (target !== 'all') {
-				buffer += "- <a href=\"https://www.smogon.com/forums/threads/3505031/\">Other Metagames Index</a><br />";
-				buffer += "- <a href=\"https://www.smogon.com/forums/threads/3507466/\">Sample teams for entering Other Metagames</a><br />";
-			}
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3505031/\">Other Metagames Index</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3507466/\">Sample teams for entering Other Metagames</a><br />";
 		}
-		if (target === 'all' || target === 'omofthemonth' || target === 'omotm' || target === 'month') {
+		if (target === 'smogondoublesuu' || target === 'doublesuu') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3481155/\">OM of the Month</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3516968/\">Doubles UU</a><br />";
 		}
-		if (target === 'all' || target === 'pokemonthrowback' || target === 'throwback') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3510401/\">Pokémon Throwback</a><br />";
-		}
-		if (target === 'all' || target === 'balancedhackmons' || target === 'bh') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3489849/\">Balanced Hackmons</a><br />";
-			if (target !== 'all') {
-				buffer += "- <a href=\"https://www.smogon.com/forums/threads/3499973/\">Balanced Hackmons Mentoring Program</a><br />";
-			}
-		}
-		if (target === 'all' || target === '1v1') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3496773/\">1v1</a><br />";
-		}
-		if (target === 'all' || target === 'oumonotype' || target === 'monotype') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3493087/\">OU Monotype</a><br />";
-			if (target !== 'all') {
-				buffer += "- <a href=\"https://www.smogon.com/forums/threads/3507565/\">OU Monotype Viability Rankings</a><br />";
-			}
-		}
-		if (target === 'all' || target === 'tiershift' || target === 'ts') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3508369/\">Tier Shift</a><br />";
-		}
-		if (target === 'all' || target === 'almostanyability' || target === 'aaa') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3495737/\">Almost Any Ability</a><br />";
-			if (target !== 'all') {
-				buffer += "- <a href=\"https://www.smogon.com/forums/threads/3508794/\">Almost Any Ability Viability Rankings</a><br />";
-			}
-		}
-		if (target === 'all' || target === 'stabmons') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3493081/\">STABmons</a><br />";
-			if (target !== 'all') {
-				buffer += "- <a href=\"https://www.smogon.com/forums/threads/3512215/\">STABmons Viability Rankings</a><br />";
-			}
-		}
-		if (target === 'all' || target === 'skybattles' || target === 'skybattle') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3493601/\">Sky Battles</a><br />";
-		}
-		if (target === 'all' || target === 'inversebattle' || target === 'inverse') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3492433/\">Inverse Battle</a><br />";
-		}
-		if (target === 'all' || target === 'hackmons' || target === 'ph') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3500418/\">Hackmons</a><br />";
-		}
-		if (target === 'all' || target === 'smogontriples' || target === 'triples') {
+		if (target === 'smogontriples' || target === 'triples') {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3511522/\">Smogon Triples</a><br />";
 		}
-		if (target === 'all' || target === 'alphabetcup') {
+		if (target === 'omofthemonth' || target === 'omotm' || target === 'month') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3498167/\">Alphabet Cup</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3481155/\">OM of the Month</a><br />";
 		}
-		if (target === 'all' || target === 'averagemons') {
+		if (target === 'pokemonthrowback' || target === 'throwback') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3510401/\">Pokémon Throwback</a><br />";
+		}
+		if (target === 'balancedhackmons' || target === 'bh') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3489849/\">Balanced Hackmons</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3499973/\">Balanced Hackmons Mentoring Program</a><br />";
+		}
+		if (target === '1v1') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3496773/\">1v1</a><br />";
+		}
+		if (target === 'monotype') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3493087/\">Monotype</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3517737/\">Monotype Viability Rankings</a><br />";
+		}
+		if (target === 'tiershift' || target === 'ts') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3508369/\">Tier Shift</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3514386/\">Tier Shift Viability Rankings</a><br />";
+		}
+		if (target === 'pu') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3513882/\">PU</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3517353/\">PU Viability Rankings</a><br />";
+		}
+		if (target === 'lcuu') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3516967/\">LC UU</a><br />";
+		}
+		if (target === 'almostanyability' || target === 'aaa') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3517022/\">Almost Any Ability</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3508794/\">Almost Any Ability Viability Rankings</a><br />";
+		}
+		if (target === 'stabmons') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3493081/\">STABmons</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3512215/\">STABmons Viability Rankings</a><br />";
+		}
+		if (target === 'skybattles' || target === 'skybattle') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3493601/\">Sky Battles</a><br />";
+		}
+		if (target === 'inversebattle' || target === 'inverse') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3518146/\">Inverse Battle</a><br />";
+		}
+		if (target === '350cup') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3512945/\">350 Cup</a><br />";
+		}
+		if (target === 'averagemons') {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3495527/\">Averagemons</a><br />";
 		}
-		if (target === 'all' || target === 'middlecup' || target === 'mc') {
+		if (target === 'hackmons' || target === 'purehackmons' || target === 'classichackmons') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3500418/\">Hackmons</a><br />";
+		}
+		if (target === 'hiddentype') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3516349/\">Hidden Type</a><br />";
+		}
+		if (target === 'middlecup' || target === 'mc') {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3494887/\">Middle Cup</a><br />";
 		}
-		if (target === 'all' || target === 'glitchmons') {
+		if (target === 'mashup') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3515232/\">OM Mashup</a><br />";
+		}
+		if (target === 'glitchmons') {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3467120/\">Glitchmons</a><br />";
 		}
@@ -1570,27 +1584,31 @@ goodra: function(target, room, user)
 			matched = true;
 			buffer += "<a href=\"https://www.smogon.com/sim/faq\">Frequently Asked Questions</a><br />";
 		}
-		if (target === 'all' || target === 'deviation') {
+		if (target === 'deviation') {
 			matched = true;
 			buffer += "<a href=\"https://www.smogon.com/sim/faq#deviation\">Why did this user gain or lose so many points?</a><br />";
 		}
-		if (target === 'all' || target === 'doubles' || target === 'triples' || target === 'rotation') {
+		if (target === 'doubles' || target === 'triples' || target === 'rotation') {
 			matched = true;
 			buffer += "<a href=\"https://www.smogon.com/sim/faq#doubles\">Can I play doubles/triples/rotation battles here?</a><br />";
 		}
-		if (target === 'all' || target === 'randomcap') {
+		if (target === 'randomcap') {
 			matched = true;
 			buffer += "<a href=\"https://www.smogon.com/sim/faq#randomcap\">What is this fakemon and what is it doing in my random battle?</a><br />";
 		}
-		if (target === 'all' || target === 'restarts') {
+		if (target === 'restarts') {
 			matched = true;
 			buffer += "<a href=\"https://www.smogon.com/sim/faq#restarts\">Why is the server restarting?</a><br />";
 		}
-		if (target === 'all' || target === 'staff') {
+		if (target === 'all' || target === 'star' || target === 'player') {
+			matched = true;
+			buffer += '<a href="http://www.smogon.com/sim/faq#star">Why is there this star (&starf;) in front of my username?</a><br />';
+		}
+		if (target === 'staff') {
 			matched = true;
 			buffer += "<a href=\"https://www.smogon.com/sim/staff_faq\">Staff FAQ</a><br />";
 		}
-		if (target === 'all' || target === 'autoconfirmed' || target === 'ac') {
+		if (target === 'autoconfirmed' || target === 'ac') {
 			matched = true;
 			buffer += "A user is autoconfirmed when they have won at least one rated battle and have been registered for a week or longer.<br />";
 		}
@@ -1613,38 +1631,41 @@ goodra: function(target, room, user)
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/tiering-faq.3498332/\">Tiering FAQ</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/xyhub/tiers\">The banlists for each tier</a><br />";
 		}
-		if (target === 'all' || target === 'ubers' || target === 'uber') {
+		if (target === 'overused' || target === 'ou') {
 			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3514144/\">np: OU Stage 6</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/ou/\">OU Banlist</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3515714/\">OU Viability Rankings</a><br />";
+		}
+		if (target === 'ubers' || target === 'uber') {
+			matched = true;
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3513127/\">np: XY Ubers Gengarite Suspect Test</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3496305/\">Ubers Viability Rankings</a><br />";
 		}
-		if (target === 'all' || target === 'overused' || target === 'ou') {
+		if (target === 'underused' || target === 'uu') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3511596/\">np: OU Stage 5</a><br />";
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3491371/\">OU Banlist</a><br />";
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3502428/\">OU Viability Rankings</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3516640/\">np: UU Stage 3</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/uu/\">UU Banlist</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3516418/\">UU Viability Rankings</a><br />";
 		}
-		if (target === 'all' || target === 'underused' || target === 'uu') {
+		if (target === 'rarelyused' || target === 'ru') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3508311/\">np: UU Stage 2</a><br />";
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3502698/#post-5323505\">UU Banlist</a><br />";
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3500340/\">UU Viability Rankings</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3515615/\">np: RU Stage 4</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/ru/\">RU Banlist</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3516783/\">RU Viability Rankings</a><br />";
 		}
-		if (target === 'all' || target === 'rarelyused' || target === 'ru') {
+		if (target === 'neverused' || target === 'nu') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3513684/\">np: RU Stage 3</a><br />";
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3506500/\">RU Viability Rankings</a><br />";
-		}
-		if (target === 'all' || target === 'neverused' || target === 'nu') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3506287/\">np: NU (beta)</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3516675/\">np: NU Stage 2</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/nu/\">NU Banlist</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3509494/\">NU Viability Rankings</a><br />";
 		}
-		if (target === 'all' || target === 'littlecup' || target === 'lc') {
+		if (target === 'littlecup' || target === 'lc') {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3496013/\">LC Viability Rankings</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3490462/\">Official LC Banlist</a><br />";
 		}
-		if (target === 'all' || target === 'doubles') {
+		if (target === 'smogondoubles' || target === 'doubles') {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3509279/\">np: Doubles Stage 3.5</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3498688/\">Doubles Banlist</a><br />";
@@ -1855,101 +1876,101 @@ goodra: function(target, room, user)
 	help: function (target, room, user) {
 		target = target.toLowerCase();
 		var matched = false;
-		if (target === 'all' || target === 'msg' || target === 'pm' || target === 'whisper' || target === 'w') {
+		if (target === 'msg' || target === 'pm' || target === 'whisper' || target === 'w') {
 			matched = true;
 			this.sendReply("/msg OR /whisper OR /w [username], [message] - Send a private message.");
 		}
-		if (target === 'all' || target === 'r' || target === 'reply') {
+		if (target === 'r' || target === 'reply') {
 			matched = true;
 			this.sendReply("/reply OR /r [message] - Send a private message to the last person you received a message from, or sent a message to.");
 		}
-		if (target === 'all' || target === 'rating' || target === 'ranking' || target === 'rank' || target === 'ladder') {
+		if (target === 'rating' || target === 'ranking' || target === 'rank' || target === 'ladder') {
 			matched = true;
 			this.sendReply("/rating - Get your own rating.");
 			this.sendReply("/rating [username] - Get user's rating.");
 		}
-		if (target === 'all' || target === 'nick') {
+		if (target === 'nick') {
 			matched = true;
 			this.sendReply("/nick [new username] - Change your username.");
 		}
-		if (target === 'all' || target === 'avatar') {
+		if (target === 'avatar') {
 			matched = true;
 			this.sendReply("/avatar [new avatar number] - Change your trainer sprite.");
 		}
-		if (target === 'all' || target === 'whois' || target === 'alts' || target === 'ip' || target === 'rooms') {
+		if (target === 'whois' || target === 'alts' || target === 'ip' || target === 'rooms') {
 			matched = true;
 			this.sendReply("/whois - Get details on yourself: alts, group, IP address, and rooms.");
 			this.sendReply("/whois [username] - Get details on a username: alts (Requires: % @ & ~), group, IP address (Requires: @ & ~), and rooms.");
 		}
-		if (target === 'all' || target === 'data') {
+		if (target === 'data') {
 			matched = true;
 			this.sendReply("/data [pokemon/item/move/ability] - Get details on this pokemon/item/move/ability/nature.");
 			this.sendReply("!data [pokemon/item/move/ability] - Show everyone these details. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'details' || target === 'dt') {
+		if (target === 'details' || target === 'dt') {
 			matched = true;
 			this.sendReply("/details [pokemon] - Get additional details on this pokemon/item/move/ability/nature.");
 			this.sendReply("!details [pokemon] - Show everyone these details. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'analysis') {
+		if (target === 'analysis') {
 			matched = true;
 			this.sendReply("/analysis [pokemon], [generation] - Links to the Smogon University analysis for this Pokemon in the given generation.");
 			this.sendReply("!analysis [pokemon], [generation] - Shows everyone this link. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'groups') {
+		if (target === 'groups') {
 			matched = true;
 			this.sendReply("/groups - Explains what the + % @ & next to people's names mean.");
 			this.sendReply("!groups - Show everyone that information. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'opensource') {
+		if (target === 'opensource') {
 			matched = true;
 			this.sendReply("/opensource - Links to PS's source code repository.");
 			this.sendReply("!opensource - Show everyone that information. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'avatars') {
+		if (target === 'avatars') {
 			matched = true;
 			this.sendReply("/avatars - Explains how to change avatars.");
 			this.sendReply("!avatars - Show everyone that information. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'intro') {
+		if (target === 'intro') {
 			matched = true;
 			this.sendReply("/intro - Provides an introduction to competitive pokemon.");
 			this.sendReply("!intro - Show everyone that information. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'cap') {
+		if (target === 'cap') {
 			matched = true;
 			this.sendReply("/cap - Provides an introduction to the Create-A-Pokemon project.");
 			this.sendReply("!cap - Show everyone that information. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'om') {
+		if (target === 'om') {
 			matched = true;
 			this.sendReply("/om - Provides links to information on the Other Metagames.");
 			this.sendReply("!om - Show everyone that information. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'learn' || target === 'learnset' || target === 'learnall') {
+		if (target === 'learn' || target === 'learnset' || target === 'learnall') {
 			matched = true;
 			this.sendReply("/learn [pokemon], [move, move, ...] - Displays how a Pokemon can learn the given moves, if it can at all.");
 			this.sendReply("!learn [pokemon], [move, move, ...] - Show everyone that information. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'calc' || target === 'calculator') {
+		if (target === 'calc' || target === 'calculator') {
 			matched = true;
 			this.sendReply("/calc - Provides a link to a damage calculator");
 			this.sendReply("!calc - Shows everyone a link to a damage calculator. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'blockchallenges' || target === 'idle') {
+		if (target === 'blockchallenges' || target === 'away' || target === 'idle') {
 			matched = true;
 			this.sendReply("/blockchallenges - Blocks challenges so no one can challenge you. Deactivate it with /back.");
 		}
-		if (target === 'all' || target === 'allowchallenges' || target === 'back') {
+		if (target === 'allowchallenges' || target === 'back') {
 			matched = true;
 			this.sendReply("/back - Unlocks challenges so you can be challenged again. Deactivate it with /away.");
 		}
-		if (target === 'all' || target === 'faq') {
+		if (target === 'faq') {
 			matched = true;
 			this.sendReply("/faq [theme] - Provides a link to the FAQ. Add deviation, doubles, randomcap, restart, or staff for a link to these questions. Add all for all of them.");
 			this.sendReply("!faq [theme] - Shows everyone a link to the FAQ. Add deviation, doubles, randomcap, restart, or staff for a link to these questions. Add all for all of them. Requires: + % @ & ~");
 		}
-		if (target === 'all' || target === 'highlight') {
+		if (target === 'highlight') {
 			matched = true;
 			this.sendReply("Set up highlights:");
 			this.sendReply("/highlight add, word - add a new word to the highlight list.");
@@ -1957,48 +1978,48 @@ goodra: function(target, room, user)
 			this.sendReply("/highlight delete, word - delete a word from the highlight list.");
 			this.sendReply("/highlight delete - clear the highlight list");
 		}
-		if (target === 'all' || target === 'timestamps') {
+		if (target === 'timestamps') {
 			matched = true;
 			this.sendReply("Set your timestamps preference:");
 			this.sendReply("/timestamps [all|lobby|pms], [minutes|seconds|off]");
 			this.sendReply("all - change all timestamps preferences, lobby - change only lobby chat preferences, pms - change only PM preferences");
 			this.sendReply("off - set timestamps off, minutes - show timestamps of the form [hh:mm], seconds - show timestamps of the form [hh:mm:ss]");
 		}
-		if (target === 'all' || target === 'effectiveness' || target === 'matchup' || target === 'eff' || target === 'type') {
+		if (target === 'effectiveness' || target === 'matchup' || target === 'eff' || target === 'type') {
 			matched = true;
 			this.sendReply("/effectiveness OR /matchup OR /eff OR /type [attack], [defender] - Provides the effectiveness of a move or type on another type or a Pokémon.");
 			this.sendReply("!effectiveness OR !matchup OR !eff OR !type [attack], [defender] - Shows everyone the effectiveness of a move or type on another type or a Pokémon.");
 		}
-		if (target === 'all' || target === 'dexsearch' || target === 'dsearch' || target === 'ds') {
+		if (target === 'dexsearch' || target === 'dsearch' || target === 'ds') {
 			matched = true;
 			this.sendReply("/dexsearch [type], [move], [move], ... - Searches for Pokemon that fulfill the selected criteria.");
 			this.sendReply("Search categories are: type, tier, color, moves, ability, gen.");
 			this.sendReply("Valid colors are: green, red, blue, white, brown, yellow, purple, pink, gray and black.");
-			this.sendReply("Valid tiers are: Uber/OU/BL/UU/BL2/RU/BL3/NU/LC/CAP.");
+			this.sendReply("Valid tiers are: Uber/OU/BL/UU/BL2/RU/BL3/NU/PU/LC/CAP.");
 			this.sendReply("Types must be followed by ' type', e.g., 'dragon type'.");
 			this.sendReply("Parameters can be excluded through the use of '!', e.g., '!water type' excludes all water types.");
 			this.sendReply("The parameter 'mega' can be added to search for Mega Evolutions only, and the parameters 'FE' or 'NFE' can be added to search fully or not-fully evolved Pokemon only.");
 			this.sendReply("The order of the parameters does not matter.");
 		}
-		if (target === 'all' || target === 'dice' || target === 'roll') {
+		if (target === 'dice' || target === 'roll') {
 			matched = true;
 			this.sendReply("/dice [optional max number] - Randomly picks a number between 1 and 6, or between 1 and the number you choose.");
 			this.sendReply("/dice [number of dice]d[number of sides] - Simulates rolling a number of dice, e.g., /dice 2d4 simulates rolling two 4-sided dice.");
 		}
-		if (target === 'all' || target === 'pick' || target === 'pickrandom') {
+		if (target === 'pick' || target === 'pickrandom') {
 			matched = true;
 			this.sendReply("/pick [option], [option], ... - Randomly selects an item from a list containing 2 or more elements.");
 		}
-		if (target === 'all' || target === 'join') {
+		if (target === 'join') {
 			matched = true;
 			this.sendReply("/join [roomname] - Attempts to join the room [roomname].");
 		}
-		if (target === 'all' || target === 'ignore') {
+		if (target === 'ignore') {
 			matched = true;
 			this.sendReply("/ignore [user] - Ignores all messages from the user [user].");
 			this.sendReply("Note that staff messages cannot be ignored.");
 		}
-		if (target === 'all' || target === 'invite') {
+		if (target === 'invite') {
 			matched = true;
 			this.sendReply("/invite [username], [roomname] - Invites the player [username] to join the room [roomname].");
 		}
@@ -2058,127 +2079,136 @@ goodra: function(target, room, user)
 			matched = true;
 			this.sendReply("/emoticons - Displays all emoticons available.");
 		}
-		if (target === '%' || target === 'lock' || target === 'l') {
+		// driver commands
+		if (target === 'lock' || target === 'l') {
 			matched = true;
 			this.sendReply("/lock OR /l [username], [reason] - Locks the user from talking in all chats. Requires: % @ & ~");
 		}
-		if (target === '%' || target === 'unlock') {
+		if (target === 'unlock') {
 			matched = true;
 			this.sendReply("/unlock [username] - Unlocks the user. Requires: % @ & ~");
 		}
-		if (target === '%' || target === 'redirect' || target === 'redir') {
+		if (target === 'redirect' || target === 'redir') {
 			matched = true;
 			this.sendReply("/redirect OR /redir [username], [roomname] - Attempts to redirect the user [username] to the room [roomname]. Requires: % @ & ~");
 		}
-		if (target === '%' || target === 'modnote') {
+		if (target === 'modnote') {
 			matched = true;
 			this.sendReply("/modnote [note] - Adds a moderator note that can be read through modlog. Requires: % @ & ~");
 		}
-		if (target === '%' || target === 'forcerename' || target === 'fr') {
+		if (target === 'forcerename' || target === 'fr') {
 			matched = true;
 			this.sendReply("/forcerename OR /fr [username], [reason] - Forcibly change a user's name and shows them the [reason]. Requires: % @ & ~");
 		}
-		if (target === '@' || target === 'roomban' || target === 'rb') {
-			matched = true;
-			this.sendReply("/roomban [username] - Bans the user from the room you are in. Requires: @ & ~");
-		}
-		if (target === '@' || target === 'roomunban') {
-			matched = true;
-			this.sendReply("/roomunban [username] - Unbans the user from the room you are in. Requires: @ & ~");
-		}
-		if (target === '@' || target === 'ban' || target === 'b') {
-			matched = true;
-			this.sendReply("/ban OR /b [username], [reason] - Kick user from all rooms and ban user's IP address with reason. Requires: @ & ~");
-		}
-		if (target === '@' || target === '#' || target === 'roompromote') {
-			matched = true;
-			this.sendReply("/roompromote [username], [group] - Promotes the user to the specified group or next ranked group. Requires: @ # & ~");
-		}
-		if (target === '@' || target === '#' || target === 'roomdemote') {
-			matched = true;
-			this.sendReply("/roomdemote [username], [group] - Demotes the user to the specified group or previous ranked group. Requires: @ # & ~");
-		}
-		if (target === '&' || target === 'banip') {
-			matched = true;
-			this.sendReply("/banip [ip] - Kick users on this IP or IP range from all rooms and bans it. Accepts wildcards to ban ranges. Requires: & ~");
-		}
-		if (target === '&' || target === 'unbanip') {
-			matched = true;
-			this.sendReply("/unbanip [ip] - Kick users on this IP or IP range from all rooms and bans it. Accepts wildcards to ban ranges. Requires: & ~");
-		}
-		if (target === '@' || target === 'unban') {
-			matched = true;
-			this.sendReply("/unban [username] - Unban a user. Requires: @ & ~");
-		}
-		if (target === '&' || target === 'unbanall') {
-			matched = true;
-			this.sendReply("/unbanall - Unban all IP addresses. Requires: & ~");
-		}
-		if (target === '%' || target === 'modlog') {
-			matched = true;
-			this.sendReply("/modlog [roomid|all], [n] - Roomid defaults to current room. If n is a number or omitted, display the last n lines of the moderator log. Defaults to 15. If n is not a number, search the moderator log for 'n' on room's log [roomid]. If you set [all] as [roomid], searches for 'n' on all rooms's logs. Requires: % @ & ~");
-		}
-		if (target === "%" || target === 'kickbattle ') {
+		if (target === 'kickbattle ') {
 			matched = true;
 			this.sendReply("/kickbattle [username], [reason] - Kicks a user from a battle with reason. Requires: % @ & ~");
 		}
-		if (target === "%" || target === 'warn' || target === 'k') {
+		if (target === 'warn' || target === 'k') {
 			matched = true;
 			this.sendReply("/warn OR /k [username], [reason] - Warns a user showing them the Pokemon Showdown Rules and [reason] in an overlay. Requires: % @ & ~");
 		}
-		if (target === '%' || target === 'mute' || target === 'm') {
+		if (target === 'modlog') {
+			matched = true;
+			this.sendReply("/modlog [roomid|all], [n] - Roomid defaults to current room. If n is a number or omitted, display the last n lines of the moderator log. Defaults to 15. If n is not a number, search the moderator log for 'n' on room's log [roomid]. If you set [all] as [roomid], searches for 'n' on all rooms's logs. Requires: % @ & ~");
+		}
+		if (target === 'mute' || target === 'm') {
 			matched = true;
 			this.sendReply("/mute OR /m [username], [reason] - Mutes a user with reason for 7 minutes. Requires: % @ & ~");
 		}
-		if (target === '%' || target === 'hourmute' || target === 'hm') {
+		if (target === 'hourmute' || target === 'hm') {
 			matched = true;
 			this.sendReply("/hourmute OR /hm [username], [reason] - Mutes a user with reason for an hour. Requires: % @ & ~");
 		}
-		if (target === '%' || target === 'unmute' || target === 'um') {
+		if (target === 'unmute' || target === 'um') {
 			matched = true;
 			this.sendReply("/unmute [username] - Removes mute from user. Requires: % @ & ~");
 		}
-		if (target === '&' || target === 'promote') {
+
+		// mod commands
+		if (target === 'roomban' || target === 'rb') {
+			matched = true;
+			this.sendReply("/roomban [username] - Bans the user from the room you are in. Requires: @ & ~");
+		}
+		if (target === 'roomunban') {
+			matched = true;
+			this.sendReply("/roomunban [username] - Unbans the user from the room you are in. Requires: @ & ~");
+		}
+		if (target === 'ban' || target === 'b') {
+			matched = true;
+			this.sendReply("/ban OR /b [username], [reason] - Kick user from all rooms and ban user's IP address with reason. Requires: @ & ~");
+		}
+		if (target === 'unban') {
+			matched = true;
+			this.sendReply("/unban [username] - Unban a user. Requires: @ & ~");
+		}
+
+		// RO commands
+		if (target === 'showimage') {
+			matched = true;
+			this.sendReply("/showimage [url], [width], [height] - Show an image. Requires: # & ~");
+		}
+		if (target === 'roompromote') {
+			matched = true;
+			this.sendReply("/roompromote [username], [group] - Promotes the user to the specified group or next ranked group. Requires: @ # & ~");
+		}
+		if (target === 'roomdemote') {
+			matched = true;
+			this.sendReply("/roomdemote [username], [group] - Demotes the user to the specified group or previous ranked group. Requires: @ # & ~");
+		}
+
+		// leader commands
+		if (target === 'banip') {
+			matched = true;
+			this.sendReply("/banip [ip] - Kick users on this IP or IP range from all rooms and bans it. Accepts wildcards to ban ranges. Requires: & ~");
+		}
+		if (target === 'unbanip') {
+			matched = true;
+			this.sendReply("/unbanip [ip] - Kick users on this IP or IP range from all rooms and bans it. Accepts wildcards to ban ranges. Requires: & ~");
+		}
+		if (target === 'unbanall') {
+			matched = true;
+			this.sendReply("/unbanall - Unban all IP addresses. Requires: & ~");
+		}
+		if (target === 'promote') {
 			matched = true;
 			this.sendReply("/promote [username], [group] - Promotes the user to the specified group or next ranked group. Requires: & ~");
 		}
-		if (target === '&' || target === 'demote') {
+		if (target === 'demote') {
 			matched = true;
 			this.sendReply("/demote [username], [group] - Demotes the user to the specified group or previous ranked group. Requires: & ~");
 		}
-		if (target === '&' || target === 'forcetie') {
+		if (target === 'forcetie') {
 			matched = true;
 			this.sendReply("/forcetie - Forces the current match to tie. Requires: & ~");
 		}
-		if (target === '&' || target === 'showimage') {
-			matched = true;
-			this.sendReply("/showimage [url], [width], [height] - Show an image. Requires: & ~");
-		}
-		if (target === '&' || target === 'declare') {
+		if (target === 'declare') {
 			matched = true;
 			this.sendReply("/declare [message] - Anonymously announces a message. Requires: & ~");
 		}
-		if (target === '~' || target === 'chatdeclare' || target === 'cdeclare') {
+
+		// admin commands
+		if (target === 'chatdeclare' || target === 'cdeclare') {
 			matched = true;
 			this.sendReply("/cdeclare [message] - Anonymously announces a message to all chatrooms on the server. Requires: ~");
 		}
-		if (target === '~' || target === 'globaldeclare' || target === 'gdeclare') {
+		if (target === 'globaldeclare' || target === 'gdeclare') {
 			matched = true;
 			this.sendReply("/globaldeclare [message] - Anonymously announces a message to every room on the server. Requires: ~");
 		}
-		if (target === '~' || target === 'htmlbox') {
+		if (target === 'htmlbox') {
 			matched = true;
 			this.sendReply("/htmlbox [message] - Displays a message, parsing HTML code contained. Requires: ~ # with global authority");
 		}
-		if (target === '%' || target === 'announce' || target === 'wall') {
+		if (target === 'announce' || target === 'wall') {
 			matched = true;
 			this.sendReply("/announce OR /wall [message] - Makes an announcement. Requires: % @ & ~");
 		}
-		if (target === '@' || target === 'modchat') {
+		if (target === 'modchat') {
 			matched = true;
 			this.sendReply("/modchat [off/autoconfirmed/+/%/@/&/~] - Set the level of moderated chat. Requires: @ for off/autoconfirmed/+ options, & ~ for all the options");
 		}
-		if (target === '~' || target === 'hotpatch') {
+		if (target === 'hotpatch') {
 			matched = true;
 			this.sendReply("Hot-patching the game engine allows you to update parts of Showdown without interrupting currently-running battles. Requires: ~");
 			this.sendReply("Hot-patching has greater memory requirements than restarting.");
@@ -2186,39 +2216,41 @@ goodra: function(target, room, user)
 			this.sendReply("/hotpatch battles - spawn new simulator processes");
 			this.sendReply("/hotpatch formats - reload the tools.js tree, rebuild and rebroad the formats list, and also spawn new simulator processes");
 		}
-		if (target === '~' || target === 'lockdown') {
+		if (target === 'lockdown') {
 			matched = true;
 			this.sendReply("/lockdown - locks down the server, which prevents new battles from starting so that the server can eventually be restarted. Requires: ~");
 		}
-		if (target === '~' || target === 'kill') {
+		if (target === 'kill') {
 			matched = true;
 			this.sendReply("/kill - kills the server. Can't be done unless the server is in lockdown state. Requires: ~");
 		}
-		if (target === '~' || target === 'loadbanlist') {
+		if (target === 'loadbanlist') {
 			matched = true;
 			this.sendReply("/loadbanlist - Loads the bans located at ipbans.txt. The command is executed automatically at startup. Requires: ~");
 		}
-		if (target === '~' || target === 'makechatroom') {
+		if (target === 'makechatroom') {
 			matched = true;
 			this.sendReply("/makechatroom [roomname] - Creates a new room named [roomname]. Requires: ~");
 		}
-		if (target === '~' || target === 'deregisterchatroom') {
+		if (target === 'deregisterchatroom') {
 			matched = true;
 			this.sendReply("/deregisterchatroom [roomname] - Deletes room [roomname] after the next server restart. Requires: ~");
 		}
-		if (target === '~' || target === 'roomowner') {
+		if (target === 'roomowner') {
 			matched = true;
 			this.sendReply("/roomowner [username] - Appoints [username] as a room owner. Removes official status. Requires: ~");
 		}
-		if (target === '~' || target === 'roomdeowner') {
+		if (target === 'roomdeowner') {
 			matched = true;
 			this.sendReply("/roomdeowner [username] - Removes [username]'s status as a room owner. Requires: ~");
 		}
-		if (target === '~' || target === 'privateroom') {
+		if (target === 'privateroom') {
 			matched = true;
 			this.sendReply("/privateroom [on/off] - Makes or unmakes a room private. Requires: ~");
 		}
-		if (target === 'all' || target === 'help' || target === 'h' || target === '?' || target === 'commands') {
+
+		// overall
+		if (target === 'help' || target === 'h' || target === '?' || target === 'commands') {
 			matched = true;
 			this.sendReply("/help OR /h OR /? - Gives you help.");
 		}
@@ -2256,19 +2288,17 @@ goodra: function(target, room, user)
 		}
 		if (!target) {
 			this.sendReply("COMMANDS: /nick, /avatar, /rating, /whois, /msg, /reply, /ignore, /away, /back, /timestamps, /highlight");
-			this.sendReply("INFORMATIONAL COMMANDS: /data, /dexsearch, /groups, /opensource, /avatars, /faq, /rules, /intro, /tiers, /othermetas, /learn, /analysis, /calc (replace / with ! to broadcast. (Requires: + % @ & ~))");
-			this.sendReply("For details on all room commands, use /roomhelp");
-			this.sendReply("For details on all commands, use /help all");
+			this.sendReply("INFORMATIONAL COMMANDS: /data, /dexsearch, /groups, /opensource, /avatars, /faq, /rules, /intro, /tiers, /othermetas, /learn, /analysis, /calc (replace / with ! to broadcast. Broadcasting requires: + % @ & ~)");
 			if (user.group !== Config.groupsranking[0]) {
 				this.sendReply("DRIVER COMMANDS: /warn, /mute, /unmute, /alts, /forcerename, /modlog, /lock, /unlock, /announce, /redirect");
 				this.sendReply("MODERATOR COMMANDS: /ban, /unban, /ip");
 				this.sendReply("LEADER COMMANDS: /declare, /forcetie, /forcewin, /promote, /demote, /banip, /unbanall");
-				this.sendReply("For details on all moderator commands, use /help @");
 			}
+			this.sendReply("For an overview of room commands, use /roomhelp");
 			this.sendReply("For details of a specific command, use something like: /help data");
 		} else if (!matched) {
-			this.sendReply("The command '" + target + "' was not found. Try /help for general help");
+			this.sendReply("Help for the command '" + target + "' was not found. Try /help for general help");
 		}
-	},
+	}
 
 };
