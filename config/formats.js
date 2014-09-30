@@ -297,7 +297,7 @@ exports.Formats = [
 	{
 		
 	name: "Random Haxmons",
-		section: "Tiers made by Shattered",
+		section: "Infinite Tiers",
 
 		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Hax Clause']	
