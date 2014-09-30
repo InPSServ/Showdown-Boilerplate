@@ -295,6 +295,14 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod']
 	},
 	{
+		
+	name: "Random Haxmons",
+		section: "Tiers made by Shattered",
+
+		team: 'random',
+		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Hax Clause']	
+	},
+	{	
 		name: "Doubles Custom Game",
 		section: "XY Doubles",
 
