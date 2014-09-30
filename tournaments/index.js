@@ -726,8 +726,8 @@ Tournament = (function () {
 
         var tourSize = this.generator.users.size;
         if (this.room.isOfficial && tourSize >= Core.tournaments.tourSize) {
-            var firstMoney = Math.round(tourSize / Core.tournaments.amountEarn),
-            secondMoney = Math.round(firstMoney / 2),
+            var firstMoney = Math.round(tourSize / Core.tournaments.amountEarn);
+            secondMoney = Math.round(firstMoney / 2);
             firstBuck = 'buck',
             secondBuck = 'buck';
             if (firstMoney > 1) firstBuck = 'bucks';
@@ -747,7 +747,7 @@ Tournament = (function () {
                 var winnerElo = Number(Core.stdin('elo', wid));
                 if (winnerElo === 0) winnerElo = 1000;
                 if (runnerUp) {
-                    var runnerUpMoney = Number(Core.stdin('money', rid)),
+                    var runnerUpMoney = Number(Core.stdin('money', rid));
                         runnerUpElo = Number(Core.stdin('elo', rid));
                     if (runnerUpElo === 0) runnerUpElo = 1000;
                     Core.stdout('money', rid, (runnerUpMoney + secondMoney), function () {
