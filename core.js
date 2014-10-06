@@ -327,7 +327,7 @@ var core = exports.core = {
         'BibleThump': 'http://107.161.19.92:8000/Twitch/BibleThump.png',
         'BloodTrail': 'http://107.161.19.92:8000/Twitch/BloodTrail.png',
         'feelsgd': 'http://107.161.19.92:8000/Twitch/feelsgd.png',
-        'feelsbd': 'http://107.161.19.92:8000/Twitch/feelsbd.png',
+        'feelsbd': 'http://107.161.19.92:8000/Twitch/feelsbd.gif',
         'crtNova': 'http://107.161.19.92:8000/Twitch/crtNova.png',
         'crtSSoH': 'http://107.161.19.92:8000/Twitch/crtSSoH.png',
         'SSSsss': 'http://107.161.19.92:8000/Twitch/SSSsss.png',
