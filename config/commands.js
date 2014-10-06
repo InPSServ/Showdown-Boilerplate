@@ -503,12 +503,16 @@ var commands = exports.commands = {
             },
 	kammi: 'poto',
 	Kammi: 'poto',
-	Queen: 'poto',
-	queen: 'poto',
 	elsa: 'poto',
 	poto: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/kammi.gif"> <br> <font size="4"><b><i><font color="#0033CC">Kammi, Frost Queen.</br>')
+            },
+	Queen: 'isawa',
+	queen: 'isawa',
+	isawa: function(target, room, user) {
+                    if(!this.canBroadcast()) return;
+                    this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/isawa.gif"> <br> <font size="3"><b><i><font color="#0033CC">Bish please, I\'m the real frost queen.</br>')
             },
 	rekt: function(target, room, user) {
                     if(!this.canBroadcast()) return;
