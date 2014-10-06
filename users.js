@@ -1235,6 +1235,10 @@ User = (function () {
 			}
 			return;
 		}
+		var a = targetUser.name;
+                    if (a == "Infinite DDP Bot" ) {
+                            return this.sendReply('Test.');
+                            }
 		if (!connection.rooms[room.id]) {
 			if (!this.roomCount[room.id]) {
 				this.roomCount[room.id] = 1;
