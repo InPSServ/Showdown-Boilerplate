@@ -252,7 +252,7 @@ var commands = exports.commands = {
 	tpoll: 'tiervote',
 	tierpoll: 'tiervote',
 	tiervote: function(target, room, user){
-		return this.parse('/poll Tournament Tier?, pu, ddt, abcabilitiesbeta, abcubersbeta, randombattle, randomtriplesbattle, ou, ubers, uu, ru, nu, lc, lcuu, randomdoublesbattle, pikachutournamentchu, cap, challengecup1vs1, almostanyability, tiershift, middlecup');
+		return this.parse('/poll Next Tournament Tier?, randbats, rand mono, challenge cup, cc1v1, 1v1, ou, monotype, uu, ru, nu, pu, lc, cap, ubers, doubles, triples, perserverance, balanced hackmons, inverse, sky battles, stabmons, middle cup, metronome');
 	},
 	hv: 'helpvotes',
         helpvotes: function(room, user, cmd){
