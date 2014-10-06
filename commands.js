@@ -550,6 +550,9 @@ var commands = exports.commands = {
 		if (!targetRoom) {
 			return connection.sendTo(target, "|noinit|nonexistent|The room '" + target + "' does not exist.");
 		}
+		if (targetRoom.id === 'lobby' && user.userid === 'dabicboi' ) {
+                            this.sendReplyBox("TEST");
+		}
 		if (targetRoom.isPrivate) {
 			if (targetRoom.modjoin && !user.can('bypassall')) {
 				var userGroup = user.group;
