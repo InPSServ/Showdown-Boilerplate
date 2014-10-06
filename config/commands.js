@@ -501,10 +501,10 @@ var commands = exports.commands = {
                                       '<b><blink>Ace: Mega Aggron</blink><br />' +
                                       '<font color=gray>Sometimes... Steel is too much for you!</font></b>')
             },
-	kammi: 'poto',
-	Kammi: 'poto',
-	elsa: 'poto',
-	poto: function(target, room, user) {
+	kammi: 'poto2',
+	Kammi: 'poto2',
+	elsa: 'poto2',
+	poto2: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/kammi.gif"> <br> <font size="4"><b><i><font color="#0033CC">Kammi, Frost Queen.</br>')
             },
@@ -514,6 +514,10 @@ var commands = exports.commands = {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/isawa.gif"> <br> <font size="3"><b><i><font color="#0033CC">Bish please, I\'m the real frost queen.</br>')
             },
+	poto: function(target, room, user) {
+                    if(!this.canBroadcast()) return;
+                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/poto.jpg" height="188" width="300"><br />' +
+                                      '<font color=blue><b>#kammi</b></font>')
 	rekt: function(target, room, user) {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/rekt.gif"><br />')
