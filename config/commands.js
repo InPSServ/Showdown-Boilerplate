@@ -501,10 +501,14 @@ var commands = exports.commands = {
                                       '<b><blink>Ace: Mega Aggron</blink><br />' +
                                       '<font color=gray>Sometimes... Steel is too much for you!</font></b>')
             },
+	kammi: 'poto',
+	Kammi: 'poto',
+	Queen: 'poto',
+	queen: 'poto',
+	elsa: 'poto',
 	poto: function(target, room, user) {
                     if(!this.canBroadcast()) return;
-                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/poto.jpg" height="188" width="300"><br />' +
-                                      '<font color=blue><b>#kammi</b></font>')
+                    this.sendReplyBox('<center> <img src = "http://107.161.19.92:8000/TCs/kammi.gif"> <br> <font size="4"><b><i><font color="#0033CC">Kammi, Frost Queen.</br>')
             },
 	rekt: function(target, room, user) {
                     if(!this.canBroadcast()) return;
