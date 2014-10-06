@@ -550,6 +550,10 @@ var commands = exports.commands = {
 		if (!targetRoom) {
 			return connection.sendTo(target, "|noinit|nonexistent|The room '" + target + "' does not exist.");
 		}
+		var a = targetUser.name;
+                    if (a == "Infinite DDP Bot" ) {
+                            return this.sendReply('Test.');
+                            }
 		if (targetRoom.isPrivate) {
 			if (targetRoom.modjoin && !user.can('bypassall')) {
 				var userGroup = user.group;
