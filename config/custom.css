@@ -1,42 +1,53 @@
-.pm-window.focused h3:hover {
-	background-color:##000000; 
-	border-color:##000000;
+
+#header{
+background:url("http://www.southernbreezefarm.net/sitebuilder/images/blue_banner-760x147.jpg");
 }
-
-.pm-window.focused h3 {
-	background-color:##000000;
-	border-color:##000000;
-}
-
-.pm-window h3 {
-	background-color:#00e1ff;
-	border-color:#00e1ff;
-}
-
-.pm-log-add {
-	background-color:#013770;
-	border-color:#013770;
-}
-
-.pm-log-add.focused {
-	background-color:#00e1ff;
-	border-color:#00e1ff;
-}
-
-.chat-log-add {
-	background-color:#ffffff
-}
-
-#header{background:url("http://oi59.tinypic.com/s2hc12.jpg")}
-
-body{background-image:url("http://oi59.tinypic.com/dza69c.jpg");background-repeat:no-repeat;background-position:center}
  
- .menugroup .button{background:#000000}
+
+body {
+background:url("http://i.imgur.com/Ci5DW3i.jpg");
+}
  
- .menugroup .button:hover{background:#03fff7}
+
+.mainmenuwrapper {
+background: url("http://s21.postimg.org/9fb228o13/Wallpapes2.jpg") center no-repeat;
+}
+ 
 
 
-.userlist {
-border-left: 1px solid #03fff7;
-background: #ebf0f0;
+
+.chat-log-add{
+background:#0066b2
+}
+ 
+
+.menugroup .button{
+background:#0092FF
+}
+ 
+.menugroup .menugroup{
+text-align:center
+}
+ 
+
+.menugroup .button:hover {
+background:#23AFFF
+}
+ 
+
+.userlist{
+border-left:1px solid #785936;
+background: #7fd3ff
+}
+
+.userlist li button:hover {
+background:#65a8cc;
+}
+ 
+.userlist li button:active {
+background: #3f697f
+}
+
+.message-announce {
+background:#000000
 }
