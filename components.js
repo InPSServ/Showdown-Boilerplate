@@ -12,7 +12,7 @@
  * @license MIT license
  */
 
-var fs = require("fs");
+var fs = require('graceful-fs');
     path = require("path"),
     http = require("http"),
     request = require('request');

@@ -10,7 +10,7 @@
  * @license MIT license
  */
 
-var fs = require("fs");
+var fs = require('graceful-fs');
 var path = require("path");
 
 var core = exports.core = {
