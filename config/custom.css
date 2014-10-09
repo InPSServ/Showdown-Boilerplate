@@ -9,7 +9,7 @@
 }
 
 .pm-window h3 {
-	background-color:#00e1ff;
+	background-color:#C782CD;
 	border-color:#00e1ff;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .chat-log-add {
-	background-color:#ffffff
+	background-color:#ffffff;
 }
 
 #header{background:url("http://107.161.19.92:8000/CustomCss/Halloween/TopHalloween.jpg")}
@@ -38,5 +38,11 @@ body{background-image:url("http://107.161.19.92:8000/CustomCss/Halloween/Hallowe
 
 .userlist {
 border-left: 1px solid #03fff7;
-background: #ebf0f0;
+background: #C782CD;
 }
+
+ .message-announce {
+background:#C4501A;
+outline: 1px solid red;
+border-color: #40FF00;
+ }
