@@ -1,15 +1,15 @@
 .pm-window.focused h3:hover {
-	background-color:#000000; 
+	background-color:#D0721F; 
 	border-color:#000000;
 }
 
 .pm-window.focused h3 {
-	background-color:#000000;
+	background-color:#D0721F;
 	border-color:#000000;
 }
 
 .pm-window h3 {
-	background-color:#C782CD;
+	background-color:#14ADFF;
 	border-color:#00e1ff;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .chat-log-add {
-	background-color:#B971CF;
+	background-color:#DFBEF7;
 }
 
 #header{background:url("http://107.161.19.92:8000/CustomCss/Halloween/TopHalloween.jpg")}
