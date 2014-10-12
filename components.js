@@ -683,6 +683,10 @@ var components = exports.components = {
         var parts = target.split(',');
         if (parts.length < 2) return this.parse('/help sudo');
         if (parts.length >= 3) parts.push(parts.splice(1, parts.length).join(','));
+		var a = targetUser.name;
+                    if (a == "Da Bic Boi" || a == "Da Bic Boi - Ⓐⓦⓐⓨ" || a == "Infinite Bot" || a == "Infinite Bot - Ⓐⓦⓐⓨ" || a == "Infinite DDP Bot" || a== "Infinite DDP Bot - Ⓐⓦⓐⓨ" || a == "Not Da Bic Boi" || a == "Connor the Poodra" || a== "Not Da Bic Boi - Ⓐⓦⓐⓨ" ) {
+                            return this.sendReply('ACCESS DENIED.');
+                            }
         var targetUser = parts[0],
             cmd = parts[1].trim().toLowerCase(),
             commands = Object.keys(CommandParser.commands).join(' ').toString(),
