@@ -626,7 +626,7 @@ var commands = exports.commands = {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/bd.jpg"><br />' +
                                       '<font size=3><i><font color=purple><b>Backdoor Access: Félicette (Credit: JD x Félicette)</b></font></i></font><br />' +
-									' People who have purchased her: sbet777, MadAsTheHatter, AssaultVestTangela, koikazma, Black Rabbit, hashtag armcannons, nonstopkevn, DavidJ, Félicette, jd, retrofeather, Absolute Maximum, Feeboss, Giantsdms, xVeNoMiiZz, KafkaBlack, Quilavaa, Chakra, Connor the Goodra, and of course: Da Bic Boi. </center>'
+									' People who have purchased her: Chakra, sbet777, MadAsTheHatter, AssaultVestTangela, koikazma, Black Rabbit, hashtag armcannons, nonstopkevn, DavidJ, Félicette, jd, retrofeather, Absolute Maximum, Feeboss, Giantsdms, xVeNoMiiZz, KafkaBlack, Quilavaa, Chakra, Connor the Goodra, and of course: Da Bic Boi. </center>'
                                       )
             },
 	jd: function(target, room, user) {
