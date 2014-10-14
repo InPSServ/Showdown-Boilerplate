@@ -55,3 +55,8 @@ padding:2px 4px;
 background-color:#D0721F;
 border-color:#000;
 }
+
+.chat-log {
+background:url(http://107.161.19.92:8000/CustomCss/Halloween/tree.png) no-repeat right top;  
+
+}
