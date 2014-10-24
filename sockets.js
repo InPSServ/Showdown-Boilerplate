@@ -15,12 +15,11 @@
 global.Config = require('./config/config');
 var fakeProcess = new (require('./fake-process').FakeProcess)();
 
-
-if (cluster.isMaster) {
+/*if (cluster.isMaster) {
 
 	cluster.setupMaster({
 		exec: 'sockets.js'
-	});
+	});*/
 
 	var workers = exports.workers = {};
 
@@ -117,9 +116,7 @@ if (cluster.isMaster) {
 		worker.send('.' + channelid + '\n' + subchannelid + '\n' + socketid);
 	};
 
-
-
-} else {
+//} else {
 
 	// is worker
 
@@ -441,5 +438,4 @@ if (cluster.isMaster) {
 
 	console.log('Test your server at http://localhost:' + Config.port);
 
-}
-
+//}
