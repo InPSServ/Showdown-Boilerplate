@@ -337,12 +337,12 @@ var Validator = (function () {
 		var clause = '';
 		setHas[check] = true;
 		if (banlistTable[check]) {
-			clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
+			clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
 			problems.push(set.species + ' is banned' + clause + '.');
 		} else if (!tools.data.FormatsData[check] || !tools.data.FormatsData[check].tier) {
 			check = toId(template.baseSpecies);
 			if (banlistTable[check]) {
-				clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
+				clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
 				problems.push(template.baseSpecies + ' is banned' + clause + '.');
 			}
 		}
@@ -350,16 +350,16 @@ var Validator = (function () {
 		check = toId(set.ability);
 		setHas[check] = true;
 		if (banlistTable[check]) {
-			clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
+			clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
 			problems.push(name + "'s ability " + set.ability + " is banned" + clause + ".");
 		}
 		check = toId(set.item);
 		setHas[check] = true;
 		if (banlistTable[check]) {
-			clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
+			clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
 			problems.push(name + "'s item " + set.item + " is banned" + clause + ".");
 		}
-		if (banlistTable['illegal'] && item.isUnreleased) {
+		if (banlistTable['Unreleased'] && item.isUnreleased) {
 			problems.push(name + "'s item " + set.item + " is unreleased.");
 		}
 		if (banlistTable['Unreleased'] && template.isUnreleased) {
@@ -408,7 +408,7 @@ var Validator = (function () {
 			}
 		}
 		if (set.moves && Array.isArray(set.moves)) {
-			set.moves = set.moves.filter(function (val){ return val; });
+			set.moves = set.moves.filter(function (val) { return val; });
 		}
 		if (!set.moves || !set.moves.length) {
 			problems.push(name + " has no moves.");
@@ -427,7 +427,7 @@ var Validator = (function () {
 				check = move.id;
 				setHas[check] = true;
 				if (banlistTable[check]) {
-					clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
+					clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
 					problems.push(name + "'s move " + set.moves[i] + " is banned" + clause + ".");
 				}
 
@@ -710,9 +710,7 @@ var Validator = (function () {
 					var getGlitch = false;
 					for (var i in glitchMoves) {
 						if (template.learnset[i]) {
-							if (i === 'mimic' && tools.getAbility(set.ability).gen === 4 && !template.prevo) {
-								// doesn't get the glitch
-							} else {
+							if (!(i === 'mimic' && tools.getAbility(set.ability).gen === 4 && !template.prevo)) {
 								getGlitch = true;
 								break;
 							}

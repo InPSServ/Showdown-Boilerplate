@@ -199,7 +199,7 @@ var LoginServer = module.exports = (function () {
 			res.on('end', endReq);
 			res.on('close', endReq);
 
-			self.requestTimeoutTimer = setTimeout(function (){
+			self.requestTimeoutTimer = setTimeout(function () {
 				if (res.connection) res.connection.destroy();
 				endReq();
 			}, LOGIN_SERVER_TIMEOUT);
@@ -232,3 +232,4 @@ require('fs').watchFile('./config/custom.css', function (curr, prev) {
 	LoginServer.request('invalidatecss', {}, function () {});
 });
 LoginServer.request('invalidatecss', {}, function () {});
+
