@@ -193,7 +193,8 @@ exports.Formats = [
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview']
 	},
-
+	
+	
 	// XY Doubles
 	///////////////////////////////////////////////////////////////////
 
