@@ -1,11 +1,11 @@
 .pm-window h3 {
-background-color:#14ADFF;
-border-color:#00e1ff;
+background-color:#151515;
+border-color:#151515;
 }
 
 .pm-log-add {
-background-color:#013770;
-border-color:#013770;
+background-color:#151515;
+border-color:#151515;
 }
 
 .pm-log-add.focused {
@@ -36,7 +36,7 @@ background:#FF4000;
 }
 
 .userlist {
-border-left:1px solid #03fff7;
+border-left:1px solid #8E45A4;
 background:#C2B5C6;
 }
 
