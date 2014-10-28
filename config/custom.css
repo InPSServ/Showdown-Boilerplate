@@ -14,7 +14,7 @@ border-color:#00e1ff;
 }
 
 .chat-log-add {
-background-color:#DFBEF7;
+background-color:#000;
 }
 
 #header {
@@ -36,8 +36,13 @@ background:#FF4000;
 }
 
 .userlist {
-border-left:1px solid #8E45A4;
-background:#C2B5C6;
+background:#080808 url(http://i.imgur.com/8Uy3Xar.png) no-repeat;
+border-right:1px solid #101010;
+}
+
+.userlist li {
+border:none;
+color:#6bf8c5;
 }
 
 .message-announce {
