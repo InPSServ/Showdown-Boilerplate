@@ -7,9 +7,7 @@
  * @license MIT license
  */
 
-var Validator;
-
-if (!process.send) {
+/*if (!process.send) {
 	var validationCount = 0;
 	var pendingValidations = {};
 
@@ -79,10 +77,19 @@ if (!process.send) {
 	ValidatorProcess.spawn();
 
 	exports.ValidatorProcess = ValidatorProcess;
-	exports.pendingValidations = pendingValidations;
+	exports.pendingValidations = pendingValidations;*/
 
 	exports.validateTeam = function (format, team, callback) {
-		ValidatorProcess.send(format, team, callback);
+		var parsedTeam = Tools.fastUnpackTeam(team);
+		var problems = this.validateTeamSync(format, parsedTeam);
+		if (problems && problems.length)
+			setImmediate(callback.bind(null, false, problems.join('\n')));
+		else {
+			var packedTeam = Tools.packTeam(parsedTeam);
+			if (packedTeam === team)
+				packedTeam = '';
+			setImmediate(callback.bind(null, true, packedTeam));
+		}
 	};
 
 	var synchronousValidators = {};
@@ -98,15 +105,14 @@ if (!process.send) {
 		if (!synchronousValidators[format]) synchronousValidators[format] = new Validator(format);
 		return synchronousValidators[format].checkLearnset(move, template, lsetData);
 	};
-} else {
+/*} else {
 	require('sugar');
 	global.Config = require('./config/config.js');
 
 	if (Config.crashguard) {
 		process.on('uncaughtException', function (err) {
 			require('./crashlogger.js')(err, 'A team validator process');
-		});
-	}
+		});*/
 
 	/**
 	 * Converts anything to an ID. An ID must have only lowercase alphanumeric
@@ -116,17 +122,17 @@ if (!process.send) {
 	 * If an object with an ID is passed, its ID will be returned.
 	 * Otherwise, an empty string will be returned.
 	 */
-	global.toId = function (text) {
+	/*global.toId = function (text) {
 		if (text && text.id) text = text.id;
 		else if (text && text.userid) text = text.userid;
 
 		return string(text).toLowerCase().replace(/[^a-z0-9]+/g, '');
-	};
+	};*/
 
 	/**
 	 * Validates a username or Pokemon nickname
 	 */
-	var bannedNameStartChars = {'~':1, '&':1, '@':1, '%':1, '+':1, '-':1, '!':1, '?':1, '#':1, ' ':1};
+	/*var bannedNameStartChars = {'~':1, '&':1, '@':1, '%':1, '+':1, '-':1, '!':1, '?':1, '#':1, ' ':1};
 	global.toName = function (name) {
 		name = string(name);
 		name = name.replace(/[\|\s\[\]\,]+/g, ' ').trim();
@@ -138,7 +144,7 @@ if (!process.send) {
 			name = Config.namefilter(name);
 		}
 		return name.trim();
-	};
+	};*/
 
 	/**
 	 * Safely ensures the passed variable is a string
@@ -146,7 +152,7 @@ if (!process.send) {
 	 * If we're expecting a string and being given anything that isn't a string
 	 * or a number, it's safe to assume it's an error, and return ''
 	 */
-	global.string = function (str) {
+	/*global.string = function (str) {
 		if (typeof str === 'string' || typeof str === 'number') return '' + str;
 		return '';
 	};
@@ -155,9 +161,9 @@ if (!process.send) {
 
 	var validators = {};
 
-	var respond = function respond(id, success, details) {
+	function respond(id, success, details) {
 		process.send(id + (success ? '|1' : '|0') + details);
-	};
+	}
 
 	process.on('message', function (message) {
 		// protocol:
@@ -180,9 +186,9 @@ if (!process.send) {
 			respond(id, true, packedTeam);
 		}
 	});
-}
+}*/
 
-Validator = (function () {
+var Validator = (function () {
 	function Validator(format) {
 		this.format = Tools.getFormat(format);
 		this.tools = Tools.mod(this.format);
@@ -331,12 +337,12 @@ Validator = (function () {
 		var clause = '';
 		setHas[check] = true;
 		if (banlistTable[check]) {
-			clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
+			clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
 			problems.push(set.species + ' is banned' + clause + '.');
 		} else if (!tools.data.FormatsData[check] || !tools.data.FormatsData[check].tier) {
 			check = toId(template.baseSpecies);
 			if (banlistTable[check]) {
-				clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
+				clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
 				problems.push(template.baseSpecies + ' is banned' + clause + '.');
 			}
 		}
@@ -344,16 +350,16 @@ Validator = (function () {
 		check = toId(set.ability);
 		setHas[check] = true;
 		if (banlistTable[check]) {
-			clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
+			clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
 			problems.push(name + "'s ability " + set.ability + " is banned" + clause + ".");
 		}
 		check = toId(set.item);
 		setHas[check] = true;
 		if (banlistTable[check]) {
-			clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
+			clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
 			problems.push(name + "'s item " + set.item + " is banned" + clause + ".");
 		}
-		if (banlistTable['Unreleased'] && item.isUnreleased) {
+		if (banlistTable['illegal'] && item.isUnreleased) {
 			problems.push(name + "'s item " + set.item + " is unreleased.");
 		}
 		if (banlistTable['Unreleased'] && template.isUnreleased) {
@@ -363,6 +369,18 @@ Validator = (function () {
 		}
 		setHas[toId(set.ability)] = true;
 		if (banlistTable['illegal']) {
+			var totalEV = 0;
+			for (var k in set.evs) {
+				if (typeof set.evs[k] !== 'number' || set.evs[k] < 0) {
+					set.evs[k] = 0;
+				}
+				totalEV += set.evs[k];
+			}
+			// In gen 1 and 2, it was possible to max out all EVs
+			if (tools.gen >= 3 && totalEV > 510) {
+				problems.push(name + " has more than 510 total EVs.");
+			}
+
 			// Don't check abilities for metagames with All Abilities
 			if (tools.gen <= 2) {
 				set.ability = 'None';
@@ -390,7 +408,7 @@ Validator = (function () {
 			}
 		}
 		if (set.moves && Array.isArray(set.moves)) {
-			set.moves = set.moves.filter(function (val) { return val; });
+			set.moves = set.moves.filter(function (val){ return val; });
 		}
 		if (!set.moves || !set.moves.length) {
 			problems.push(name + " has no moves.");
@@ -409,7 +427,7 @@ Validator = (function () {
 				check = move.id;
 				setHas[check] = true;
 				if (banlistTable[check]) {
-					clause = typeof banlistTable[check] === 'string' ? " by " + banlistTable[check] : '';
+					clause = typeof banlistTable[check] === 'string' ? " by "+ banlistTable[check] : '';
 					problems.push(name + "'s move " + set.moves[i] + " is banned" + clause + ".");
 				}
 
@@ -450,23 +468,23 @@ Validator = (function () {
 					if (eventTemplate.eventPokemon) eventData = eventTemplate.eventPokemon[parseInt(splitSource[0], 10)];
 					if (eventData) {
 						if (eventData.nature && eventData.nature !== set.nature) {
-							problems.push(name + " must have a " + eventData.nature + " nature because it has a move only available from a specific event.");
+							problems.push(name + " must have a " + eventData.nature + " nature because it comes from a specific event.");
 						}
 						if (eventData.shiny) {
 							set.shiny = true;
 						}
 						if (eventData.generation < 5) eventData.isHidden = false;
 						if (eventData.isHidden !== undefined && eventData.isHidden !== isHidden) {
-							problems.push(name + (isHidden ? " can't have" : " must have") + " its hidden ability because it has a move only available from a specific event.");
+							problems.push(name + (isHidden ? " can't have" : " must have") + " its hidden ability because it comes from a specific event.");
 						}
 						if (tools.gen <= 5 && eventData.abilities && eventData.abilities.indexOf(ability.id) < 0) {
-							problems.push(name + " must have " + eventData.abilities.join(" or ") + " because it has a move only available from a specific event.");
+							problems.push(name + " must have " + eventData.abilities.join(" or ") + " because it comes from a specific event.");
 						}
 						if (eventData.gender) {
 							set.gender = eventData.gender;
 						}
 						if (eventData.level && set.level < eventData.level) {
-							problems.push(name + " must be at least level " + eventData.level + " because it has a move only available from a specific event.");
+							problems.push(name + " must be at least level " + eventData.level + " because it comes from a specific event.");
 						}
 					}
 					isHidden = false;
@@ -490,7 +508,7 @@ Validator = (function () {
 			}
 			if (banlistTable['illegal'] && set.level < template.evoLevel) {
 				// FIXME: Event pokemon given at a level under what it normally can be attained at gives a false positive
-				problems.push(name + " must be at least level " + template.evoLevel + " to be evolved.");
+				problems.push(name + " must be at least level " + template.evoLevel + ".");
 			}
 			if (!lsetData.sources && lsetData.sourcesBefore <= 3 && tools.getAbility(set.ability).gen === 4 && !template.prevo && tools.gen <= 5) {
 				problems.push(name + " has a gen 4 ability and isn't evolved - it can't use anything from gen 3.");
@@ -692,7 +710,9 @@ Validator = (function () {
 					var getGlitch = false;
 					for (var i in glitchMoves) {
 						if (template.learnset[i]) {
-							if (!(i === 'mimic' && tools.getAbility(set.ability).gen === 4 && !template.prevo)) {
+							if (i === 'mimic' && tools.getAbility(set.ability).gen === 4 && !template.prevo) {
+								// doesn't get the glitch
+							} else {
 								getGlitch = true;
 								break;
 							}
