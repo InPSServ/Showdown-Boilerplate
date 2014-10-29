@@ -43,13 +43,13 @@ background-repeat:no-repeat;
 background-position:center;
 }
 
-.menugroup .button {
-background:#000;
-}
-
-.menugroup .button:hover {
-background:#03fff7;
-}
+ .menugroup .button {
+ background:#000;
+ }
+ 
+ .menugroup .button:hover {
+ background:#FF4000;
+ }
 
 .chat-log,.ps-room.ps-room-light {
 background:#151515;
