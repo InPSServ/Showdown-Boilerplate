@@ -8,6 +8,8 @@ background:#080808 url(http://i.imgur.com/8Uy3Xar.png) no-repeat;
 border-right:1px solid #101010;
 }
 
+.ps-room{ border-left: 1px solid #545454; }
+
 .userlist li {
 border:none;
 color:#6bf8c5;
