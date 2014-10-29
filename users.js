@@ -843,8 +843,8 @@ User = (function () {
 			if (body !== '1') {
 				authenticated = true;
 
-				if (Config.customavatars && Config.customavatars[userid]) {
-					avatar = Config.customavatars[userid];
+				if (Config.customAvatars && Config.customAvatars[userid]) {
+					avatar = Config.customAvatars[userid];
 				}
 
 				if (usergroups[userid]) {
@@ -1235,6 +1235,7 @@ User = (function () {
 			}
 			return;
 		}
+		
 		if (!connection.rooms[room.id]) {
 			if (!this.roomCount[room.id]) {
 				this.roomCount[room.id] = 1;

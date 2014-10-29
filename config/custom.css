@@ -1,11 +1,11 @@
 .pm-window h3 {
-background-color:#151515;
-border-color:#151515;
+background-color:#14ADFF;
+border-color:#00e1ff;
 }
 
 .pm-log-add {
-background-color:#151515;
-border-color:#151515;
+background-color:#013770;
+border-color:#013770;
 }
 
 .pm-log-add.focused {
@@ -14,7 +14,7 @@ border-color:#00e1ff;
 }
 
 .chat-log-add {
-background-color:#000;
+background-color:#DFBEF7;
 }
 
 #header {
@@ -32,17 +32,12 @@ background:#000;
 }
 
 .menugroup .button:hover {
-background:#FF4000;
+background:#03fff7;
 }
 
 .userlist {
-background:#080808 url(http://i.imgur.com/8Uy3Xar.png) no-repeat;
-border-right:1px solid #101010;
-}
-
-.userlist li {
-border:none;
-color:#6bf8c5;
+border-left:1px solid #03fff7;
+background:#C2B5C6;
 }
 
 .message-announce {
