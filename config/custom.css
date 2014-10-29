@@ -1,11 +1,16 @@
-.pm-window h3 {
-background-color:#14ADFF;
-border-color:#00e1ff;
+.chat-log-add {
+border-top:1px solid #151515;
+background:#151515;
 }
 
-.pm-log-add {
-background-color:#013770;
-border-color:#013770;
+.userlist {
+background:#080808 url(http://i.imgur.com/8Uy3Xar.png) no-repeat;
+border-right:1px solid #101010;
+}
+
+.userlist li {
+border:none;
+color:#6bf8c5;
 }
 
 .pm-log-add.focused {
@@ -13,8 +18,19 @@ background-color:#00e1ff;
 border-color:#00e1ff;
 }
 
-.chat-log-add {
-background-color:#DFBEF7;
+.message-announce {
+background:#C4501A;
+border-color:#40FF00;
+}
+
+.broadcast-blue {
+background-color:#D27422;
+padding:2px 4px;
+}
+
+.pm-window.focused h3:hover,.pm-window.focused h3 {
+background-color:#D0721F;
+border-color:#000;
 }
 
 #header {
@@ -35,28 +51,12 @@ background:#000;
 background:#03fff7;
 }
 
-.userlist {
-border-left:1px solid #03fff7;
-background:#C2B5C6;
+.chat-log,.ps-room.ps-room-light {
+background:#151515;
+color:#77D6B8;
 }
 
-.message-announce {
-background:#C4501A;
-border-color:#40FF00;
-}
-
-.broadcast-blue {
-background-color:#D27422;
-padding:2px 4px;
-}
-
-
-.pm-window.focused h3:hover,.pm-window.focused h3 {
-background-color:#D0721F;
-border-color:#000;
-}
-
-.chat-log {
-background:url(http://107.161.19.92:8000/CustomCss/Halloween/tree.png) no-repeat right top;  
-
+.pm-window h3,.pm-log-add {
+background-color:#151515;
+border-color:#151515;
 }
