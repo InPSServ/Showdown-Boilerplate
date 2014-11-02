@@ -131,7 +131,7 @@ module.exports = (function () {
 			timid: {name:"Timid", plus:'spe', minus:'atk'}
 		};
 	}
-	Tools.loadMods = function () {
+	Tools.loadMods = function() {
 		if (Tools.modsLoaded) return;
 		var parentMods = {};
 
@@ -181,40 +181,35 @@ module.exports = (function () {
 	Tools.prototype.effectToString = function () {
 		return this.name;
 	};
-	Tools.prototype.getImmunity = function (source, target) {
-		// returns false if the target is immune; true otherwise
-		// also checks immunity to some statuses
-		var sourceType = source.type || source;
-		var targetTyping = target.getTypes && target.getTypes() || target.types || target;
-		if (Array.isArray(targetTyping)) {
-			for (var i = 0; i < targetTyping.length; i++) {
-				if (!this.getImmunity(sourceType, targetTyping[i])) return false;
+	Tools.prototype.getImmunity = function (type, target) {
+		var types = target.getTypes && target.getTypes() || target.types;
+		for (var i = 0; i < types.length; i++) {
+			if (this.data.TypeChart[types[i]] && this.data.TypeChart[types[i]].damageTaken && this.data.TypeChart[types[i]].damageTaken[type] === 3) {
+				return false;
 			}
-			return true;
 		}
-		var typeData = this.data.TypeChart[targetTyping];
-		if (typeData && typeData.damageTaken[sourceType] === 3) return false;
 		return true;
 	};
-	Tools.prototype.getEffectiveness = function (source, target) {
-		var sourceType = source.type || source;
-		var totalTypeMod = 0;
-		var targetTyping = target.getTypes && target.getTypes() || target.types || target;
-		if (Array.isArray(targetTyping)) {
-			for (var i = 0; i < targetTyping.length; i++) {
-				totalTypeMod += this.getEffectiveness(sourceType, targetTyping[i]);
-			}
-			return totalTypeMod;
+	Tools.prototype.getEffectiveness = function (source, target, pokemon) {
+		if (source.getEffectiveness) {
+			return source.getEffectiveness.call(this, source, target, pokemon);
 		}
-		var typeData = this.data.TypeChart[targetTyping];
-		if (!typeData) return 0;
-		switch (typeData.damageTaken[sourceType]) {
-			case 1: return 1; // super-effective
-			case 2: return -1; // resist
+		var type = source.type || source;
+		var totalTypeMod = 0;
+		var targetTypes = target.getTypes && target.getTypes() || target.types;
+		for (var i = 0; i < targetTypes.length; i++) {
+			if (!this.data.TypeChart[targetTypes[i]]) continue;
+			var typeMod = this.data.TypeChart[targetTypes[i]].damageTaken[type];
+			if (typeMod === 1) { // super-effective
+				totalTypeMod++;
+			}
+			if (typeMod === 2) { // resist
+				totalTypeMod--;
+			}
 			// in case of weird situations like Gravity, immunity is
 			// handled elsewhere
-			default: return 0;
 		}
+		return totalTypeMod;
 	};
 	Tools.prototype.getTemplate = function (template) {
 		if (!template || typeof template === 'string') {
@@ -260,9 +255,6 @@ module.exports = (function () {
 				if (template.forme && template.forme in {'Mega':1, 'Mega-X':1, 'Mega-Y':1}) {
 					template.gen = 6;
 					template.isMega = true;
-				} else if (template.forme === 'Primal') {
-					template.gen = 6;
-					template.isPrimal = true;
 				} else if (template.num >= 650) template.gen = 6;
 				else if (template.num >= 494) template.gen = 5;
 				else if (template.num >= 387) template.gen = 4;
@@ -420,7 +412,7 @@ module.exports = (function () {
 			item.toString = this.effectToString;
 			if (!item.category) item.category = 'Effect';
 			if (!item.effectType) item.effectType = 'Item';
-			if (item.isBerry) item.fling = {basePower: 10};
+			if (item.isBerry) item.fling = { basePower: 10 };
 			if (!item.gen) {
 				if (item.num >= 577) item.gen = 6;
 				else if (item.num >= 537) item.gen = 5;
@@ -670,7 +662,7 @@ module.exports = (function () {
 
 				var ld = this.levenshtein(cmpTarget, word.toLowerCase(), maxLd);
 				if (ld <= maxLd) {
-					searchResults.push({word: word, ld: ld});
+					searchResults.push({ word: word, ld: ld });
 				}
 			}
 		}
@@ -774,7 +766,7 @@ module.exports = (function () {
 			}
 
 			// level
-			if (set.level && set.level !== 100) {
+			if (set.level && set.level != 100) {
 				buf += '|' + set.level;
 			} else {
 				buf += '|';
