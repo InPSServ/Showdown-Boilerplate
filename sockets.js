@@ -24,11 +24,7 @@ var fakeProcess = new (require('./fake-process').FakeProcess)();
 	var workers = exports.workers = {};
 
 	var spawnWorker = exports.spawnWorker = function () {
-<<<<<<< HEAD
 		var worker = fakeProcess.server;
-=======
-		var worker = cluster.fork({PSPORT: Config.port, PSBINDADDR: Config.bindaddress || ''});
->>>>>>> upstream/master
 		var id = worker.id;
 		workers[id] = worker;
 		worker.on('message', function (data) {
@@ -125,7 +121,6 @@ var fakeProcess = new (require('./fake-process').FakeProcess)();
 	// is worker
 
 	if (process.env.PSPORT) Config.port = +process.env.PSPORT;
-	if (process.env.PSBINDADDR) Config.bindaddress = process.env.PSBINDADDR;
 
 	// ofe is optional
 	// if installed, it will heap dump if the process runs out of memory
@@ -432,13 +427,8 @@ var fakeProcess = new (require('./fake-process').FakeProcess)();
 		});
 	});
 	server.installHandlers(app, {});
-<<<<<<< HEAD
 	app.listen(Config.port);
 	console.log('Worker ' /*+ cluster.worker.id*/ + ' now listening on port ' + Config.port);
-=======
-	app.listen(Config.port, Config.bindaddress || undefined);
-	console.log('Worker ' + cluster.worker.id + ' now listening on ' + (Config.bindaddress || '*') + ':' + Config.port);
->>>>>>> upstream/master
 
 	if (appssl) {
 		server.installHandlers(appssl, {});
@@ -446,11 +436,6 @@ var fakeProcess = new (require('./fake-process').FakeProcess)();
 		console.log('Worker ' /*+ cluster.worker.id*/ + ' now listening for SSL on port ' + Config.ssl.port);
 	}
 
-<<<<<<< HEAD
 	console.log('Test your server at http://localhost:' + Config.port);
 
 //}
-=======
-	console.log('Test your server at http://' + (Config.bindaddress || 'localhost') + ':' + Config.port);
-}
->>>>>>> upstream/master
