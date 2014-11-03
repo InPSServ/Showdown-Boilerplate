@@ -69,16 +69,7 @@ background-color:#58009C;
 
 
 
-.utilichart .numcol {
-width: 24px;
-padding-right: 35px;
-text-align: right;
-color: #FFFFFF;
-text-shadow: 1px 1px black;
-padding-top: 7px;
-font-size: 8pt;
-}
- 
+
 .utilichart .pokemonnamecol {
 padding-top: 5px;
 height: 23px;
@@ -97,7 +88,7 @@ float: left;
 padding-top: 6px;
 height: 22px;
 font-size: 9pt;
-color: #FFFFFF;
+color: #77d6b8;
 text-shadow: 1px 1px black;
 }
  
@@ -118,4 +109,3 @@ width: 90px;
 color: #77d6b8;
 font-size: 7pt;
 font-style: normal;
-}
