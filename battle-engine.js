@@ -226,16 +226,12 @@ BattlePokemon = (function () {
 		}
 
 		if (!this.set.evs) {
-			this.set.evs = {
-				hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84
-			};
+			this.set.evs = {hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84};
 		}
 		if (!this.set.ivs) {
-			this.set.ivs = {
-				hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31
-			};
+			this.set.ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
 		}
-		var stats = { hp: 31, atk: 31, def: 31, spe: 31, spa: 31, spd: 31};
+		var stats = {hp: 31, atk: 31, def: 31, spe: 31, spa: 31, spd: 31};
 		for (var i in stats) {
 			if (!this.set.evs[i]) this.set.evs[i] = 0;
 			if (!this.set.ivs[i] && this.set.ivs[i] !== 0) this.set.ivs[i] = 31;
@@ -270,10 +266,7 @@ BattlePokemon = (function () {
 			this.hpPower = (this.battle.gen && this.battle.gen < 6) ? Math.floor(hpPowerX * 40 / 63) + 30 : 60;
 		}
 
-		this.boosts = {
-			atk: 0, def: 0, spa: 0, spd: 0, spe: 0,
-			accuracy: 0, evasion: 0
-		};
+		this.boosts = {atk: 0, def: 0, spa: 0, spd: 0, spe: 0, accuracy: 0, evasion: 0};
 		this.stats = {atk:0, def:0, spa:0, spd:0, spe:0};
 		this.baseStats = {atk:10, def:10, spa:10, spd:10, spe:10};
 		for (var statName in this.baseStats) {
@@ -356,16 +349,17 @@ BattlePokemon = (function () {
 			if (side === this.side) continue;
 			for (var j = 0; j < side.active.length; ++j) {
 				var pokemon = side.active[j];
-				if (!pokemon || pokemon.fainted ||
-					!pokemon.template.abilities) continue;
-				for (var k in pokemon.template.abilities) {
-					var ability = pokemon.template.abilities[k];
+				if (!pokemon || pokemon.fainted) continue;
+				var template = (pokemon.illusion || pokemon).template;
+				if (!template.abilities) continue;
+				for (var k in template.abilities) {
+					var ability = template.abilities[k];
 					if (ability === pokemon.ability) {
 						// This event was already run above so we don't need
 						// to run it again.
 						continue;
 					}
-					if ((k === 'H') && pokemon.template.unreleasedHidden) {
+					if ((k === 'H') && template.unreleasedHidden) {
 						// unreleased hidden ability
 						continue;
 					}
@@ -382,7 +376,6 @@ BattlePokemon = (function () {
 	};
 	BattlePokemon.prototype.calculateStat = function (statName, boost, modifier) {
 		statName = toId(statName);
-		// var boost = this.boosts[statName];
 
 		if (statName === 'hp') return this.maxhp; // please just read .maxhp directly
 
@@ -546,13 +539,31 @@ BattlePokemon = (function () {
 	};
 	BattlePokemon.prototype.getRequestData = function () {
 		var lockedMove = this.getLockedMove();
+
 		var data = {moves: this.getMoves(lockedMove)};
-		if (this.trapped) {
-			data.trapped = true;
-		} else if (this.maybeTrapped) {
-			data.maybeTrapped = true;
+
+		// Information should be restricted for the last active Pokémon
+		var isLastActive = this.isLastActive();
+		if (isLastActive) {
+			if (this.trapped === true) {
+				data.trapped = true;
+			} else if (this.maybeTrapped) {
+				data.maybeTrapped = true;
+			}
+		} else {
+			if (this.trapped) data.trapped = true;
 		}
+
 		return data;
+	};
+	BattlePokemon.prototype.isLastActive = function () {
+		if (!this.isActive) return false;
+
+		var allyActive = this.side.active;
+		for (var i = this.position + 1; i < allyActive.length; i++) {
+			if (allyActive[i] && !allyActive.fainted) return false;
+		}
+		return true;
 	};
 	BattlePokemon.prototype.positiveBoosts = function () {
 		var boosts = 0;
@@ -705,16 +716,11 @@ BattlePokemon = (function () {
 			evasion: 0
 		};
 
-		this.moveset = [];
-		this.moves = [];
-		// we're copying array contents
-		// DO NOT "optimize" it to copy just the pointer
-		// if you don't know what a pointer is, please don't
-		// touch this code
-		for (var i = 0; i < this.baseMoveset.length; i++) {
-			this.moveset.push(this.baseMoveset[i]);
-			this.moves.push(toId(this.baseMoveset[i].move));
-		}
+		this.moveset = this.baseMoveset.slice();
+		this.moves = this.moveset.map(function (move) {
+			return toId(move.move);
+		});
+
 		this.transformed = false;
 		this.ability = this.baseAbility;
 		this.set.ivs = this.baseIvs;
@@ -753,12 +759,14 @@ BattlePokemon = (function () {
 	};
 	// returns the amount of damage actually dealt
 	BattlePokemon.prototype.faint = function (source, effect) {
+		// This function only puts the pokemon in the faint queue;
+		// actually setting of this.fainted comes later when the
+		// faint queue is resolved.
 		if (this.fainted || this.status === 'fnt') return 0;
 		var d = this.hp;
 		this.hp = 0;
 		this.switchFlag = false;
 		this.status = 'fnt';
-		// this.fainted = true;
 		this.battle.faintQueue.push({
 			target: this,
 			source: source,
@@ -779,9 +787,9 @@ BattlePokemon = (function () {
 		}
 		return d;
 	};
-	BattlePokemon.prototype.tryTrap = function () {
+	BattlePokemon.prototype.tryTrap = function (isHidden) {
 		if (this.runImmunity('trapped')) {
-			this.trapped = true;
+			this.trapped = isHidden ? 'hidden' : true;
 			return true;
 		}
 		return false;
@@ -1165,6 +1173,16 @@ BattlePokemon = (function () {
 		if (types.length) return types;
 		if (this.battle.gen >= 5) return ['Normal'];
 		return ['???'];
+	};
+	BattlePokemon.prototype.runEffectiveness = function (move) {
+		var totalTypeMod = 0;
+		var types = this.getTypes();
+		for (var i = 0; i < types.length; i++) {
+			var typeMod = this.battle.getEffectiveness(move, types[i]);
+			typeMod = this.battle.singleEvent('Effectiveness', move, null, types[i], move, null, typeMod);
+			totalTypeMod += this.battle.runEvent('Effectiveness', this, types[i], move, typeMod);
+		}
+		return totalTypeMod;
 	};
 	BattlePokemon.prototype.runImmunity = function (type, message) {
 		if (this.fainted) {
