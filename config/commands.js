@@ -664,7 +664,8 @@ peppa: function(target, room, user) {
 										'<font size=3><i><font color=pink><b>List of things Peppamint has said IRL: </b></font></i><br />' +
 										'</font><i><font color=purple><b>"I spread my asscheeks for Shrek" 8/16/2014 </b></font></i></font><br />' +
 										'</font><i><font color=purple><b>"Where\'s Picopie? What!? He\'s jacking off!?" 8/16/2014 </b></font></i></font><br />'	+
-										'</font><i><font color=purple><b>"Why is it so long!?" 9/10/2014 </b></font></i></font><br />'
+										'</font><i><font color=purple><b>"Why is it so long!?" 9/10/2014 </b></font></i></font><br />' + 
+										'<img src="http://107.161.19.92:8000/TCs/peppa2.jpg/" height="251" width="375">'
                                       )
             },
 	  giant: function(target, room, user) {
