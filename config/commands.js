@@ -665,7 +665,7 @@ peppa: function(target, room, user) {
 										'</font><i><font color=purple><b>"I spread my asscheeks for Shrek" 8/16/2014 </b></font></i></font><br />' +
 										'</font><i><font color=purple><b>"Where\'s Picopie? What!? He\'s jacking off!?" 8/16/2014 </b></font></i></font><br />'	+
 										'</font><i><font color=purple><b>"Why is it so long!?" 9/10/2014 </b></font></i></font><br />' + 
-										'<img src="http://107.161.19.92:8000/TCs/peppa2.jpg/" height="251" width="375">'
+										'<img src="http://107.161.19.92:8000/TCs/peppa2.jpg/">'
                                       )
             },
 	  giant: function(target, room, user) {
