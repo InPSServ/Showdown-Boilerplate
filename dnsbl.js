@@ -12,28 +12,12 @@
  * @license MIT license
  */
 
-const BLOCKLISTS = ['sbl.spamhaus.org', 'rbl.efnetrbl.org', 'dnsbl.dronebl.org', Config.port+'.'+(Config.ip || '127.0.0.1').split('.').reverse().join('.')+'.ip-port.exitlist.torproject.org','http.dnsbl.sorbs.net','socks.dnsbl.sorbs.net','misc.dnsbl.sorbs.net'];
+const BLOCKLISTS = ['sbl.spamhaus.org', 'rbl.efnetrbl.org'];
 
 var dns = require('dns');
 
 var dnsblCache = exports.cache = {
 	'127.0.0.1': false
-};
-
-/**
- * Dnsbl.query(ip, callback)
- *
- * Calls callback(blocklist), where blocklist is the blocklist domain
- * if the passed IP is in a blocklist, or boolean false if the IP is
- * not in any blocklist.
- */
-exports.query = function queryDnsbl(ip, callback) {
-	if (ip in dnsblCache) {
-		callback(dnsblCache[ip]);
-		return;
-	}
-	var reversedIpDot = ip.split('.').reverse().join('.') + '.';
-	queryDnsblLoop(ip, callback, reversedIpDot, 0);
 };
 
 function queryDnsblLoop(ip, callback, reversedIpDot, index) {

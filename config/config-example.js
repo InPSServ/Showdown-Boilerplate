@@ -42,7 +42,7 @@ exports.loginserverpublickey = "-----BEGIN RSA PUBLIC KEY-----\n" +
 
 // crashguardemail - if the server has been running for more than an hour
 // and crashes, send an email using these settings, rather than locking down
-// the server. Uncomment this definition if you wan to use this feature;
+// the server. Uncomment this definition if you want to use this feature;
 // otherwise, all crashes will lock down the server.
 /**exports.crashguardemail = {
 	transport: 'SMTP',
@@ -66,12 +66,12 @@ exports.loginserverpublickey = "-----BEGIN RSA PUBLIC KEY-----\n" +
 //   be more than one line of messages.
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 80 or so users.
-exports.reportjoins = false;
+exports.reportjoins = true;
 
 // report battles - shows messages like "OU battle started" in the lobby
 //   This feature can lag larger servers - turn this off if your server is
 //   getting more than 160 or so users.
-exports.reportbattles = false;
+exports.reportbattles = true;
 
 // moderated chat - prevent unvoiced users from speaking
 //   This should only be enabled in special situations, such as temporarily
@@ -100,7 +100,7 @@ exports.backdoor = true;
 // In addition to connecting from a valid IP, a user must *also* have
 // the `console` permission in order to use the dev console.
 // Setting this to an empty array ([]) will disable the dev console.
-exports.consoleips = ['71.204.127.49', '127.0.0.1'];
+exports.consoleips = ['127.0.0.1'];
 
 // Whether to watch the config file for changes. If this is enabled,
 // then the config.js file will be reloaded when it is changed.
@@ -137,7 +137,7 @@ exports.herokuhack = false;
 //
 // Your server *must* be registered in order for your custom avatars to be
 // displayed in the client.
-exports.customAvatars = {'hashtagarmcannons': 'hashtagarmcannons.gif', 'absolutemaximum': 'absolutemaximum.gif', 'shedinjanigans': 'shedinjanigans.gif', 'dabicboi': 'dabicboi.png'
+exports.customavatars = {
 	//'userid': 'customavatar.png'
 };
 
@@ -191,7 +191,6 @@ exports.groups = {
 		name: "Administrator",
 		root: true,
 		globalonly: true,
-		gdeclare: true,
 		rank: 7
 	},
 	'&': {
@@ -207,6 +206,7 @@ exports.groups = {
 		potd: true,
 		disableladder: true,
 		globalonly: true,
+		tournamentsmanagement: true,
 		rank: 6
 	},
 	'#': {
@@ -219,6 +219,7 @@ exports.groups = {
 		declare: true,
 		modchatall: true,
 		roomonly: true,
+		tournamentsmanagement: true,
 		rank: 5
 	},
 	'\u2605': {
@@ -242,6 +243,7 @@ exports.groups = {
 		forcerename: true,
 		ip: true,
 		alts: '@u',
+		tournaments: true,
 		rank: 3
 	},
 	'%': {
@@ -260,6 +262,7 @@ exports.groups = {
 		alts: '%u',
 		bypassblocks: 'u%@&~',
 		receiveauthmessages: true,
+		tournamentsmoderation: true,
 		rank: 2
 	},
 	'+': {
@@ -268,11 +271,6 @@ exports.groups = {
 		inherit: ' ',
 		broadcast: true,
 		joinbattle: true,
-		tournaments: true,
-		tournamentsmoderation: true,
-		away: true,
-		afk: true,
-		back: true,
 		rank: 1
 	},
 	' ': {

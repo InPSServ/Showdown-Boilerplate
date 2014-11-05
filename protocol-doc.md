@@ -240,14 +240,14 @@ etc). `NAME` is the nickname of the Pokemon performing the action.
 > `switch` means it was intentional, while `drag` means it was unintentional
 > (forced by Whirlwind, Roar, etc).
 
-`|detailschange|POKEMON|FORME|HP STATUS` or
-`|detailschange|POKEMON|FORME, GENDER|HP STATUS` or
+`|detailschange|POKEMON|FORME|HP STATUS` or 
+`|detailschange|POKEMON|FORME, GENDER|HP STATUS` or 
 `|-formechange|POKEMON|FORME|HP STATUS`
 
-> The specified Pokemon has changed formes (via Mega Evolution, ability, etc.)
-> to `FORME`. If the forme change cannot be reverted (Mega Evolution or a
-> Shaymin-Sky that is frozen), then `detailschange` will appear; otherwise,
-> the client will send `-formechange`. `GENDER` can appear in `detailschange`
+> The specified Pokemon has changed formes (via Mega Evolution, ability, etc.) 
+> to `FORME`. If the forme change cannot be reverted (Mega Evolution or a 
+> Shaymin-Sky that is frozen), then `detailschange` will appear; otherwise, 
+> the client will send `-formechange`. `GENDER` can appear in `detailschange` 
 > if the transforming Pokemon has a gender, displayed as `M` or `F`
 > for male and female, respectively.
 
@@ -278,10 +278,10 @@ animation) and `|[silent]` (suppress message).
 `|-fail|POKEMON|ACTION`
 
 > The specified `ACTION` has failed against the `POKEMON` targetted. The `ACTION`
->  in question can be a move that fails, or a stat drop blocked by an ability
-> like Hyper Cutter, in which case `ACTION` will be `unboost|STAT`, where `STAT`
-> indicates where the ability prevents stat drops. (For abilities that block all
-> stat drops, like Clear Body, `|STAT` does not appear.)
+>  in question can be a move that fails, or a stat drop blocked by an ability 
+> like Hyper Cutter, in which case `ACTION` will be `unboost|STAT`, where `STAT` 
+> indicates where the ability prevents stat drops. (For abilities that block all 
+> stat drops, like Clear Body, `|STAT` does not appear.) 
 
 `|-damage|POKEMON|HP STATUS`
 
@@ -305,7 +305,7 @@ animation) and `|[silent]` (suppress message).
 
 `|-cureteam|POKEMON`
 
-> The Pokemon `POKEMON` has used a move that cures its team of status effects,
+> The Pokemon `POKEMON` has used a move that cures its team of status effects, 
 > like Heal Bell.
 
 `|-boost|POKEMON|STAT|AMOUNT`
@@ -344,29 +344,42 @@ animation) and `|[silent]` (suppress message).
 
 `|-item|POKEMON|ITEM`
 
-> The `ITEM` held by the `POKEMON` has been changed or revealed due to a move or
-> ability. In addition, Air Balloon reveals itself when the Pokemon holding it
+> The `ITEM` held by the `POKEMON` has been changed or revealed due to a move or 
+> ability. In addition, Air Balloon reveals itself when the Pokemon holding it 
 > switches in, so it will also cause this message to appear.
 
 `|-enditem|POKEMON|ITEM`
 
-> The `ITEM` held by `POKEMON` has been destroyed, and it now holds no item. This can
-> be because of an item's own effects (consumed Berries, Air Balloon), or by a move or
-> ability, like Knock Off. If a berry is consumed, it also has an additional modifier
-> `|[eat]` to indicate that it was consumed. This message does not appear if the item's
-> ownership was changed (with a move or ability like Thief or Trick), even if the move
+> The `ITEM` held by `POKEMON` has been destroyed, and it now holds no item. This can 
+> be because of an item's own effects (consumed Berries, Air Balloon), or by a move or 
+> ability, like Knock Off. If a berry is consumed, it also has an additional modifier 
+> `|[eat]` to indicate that it was consumed. This message does not appear if the item's 
+> ownership was changed (with a move or ability like Thief or Trick), even if the move 
 > or ability would result in a Pokemon without an item.
+
+`|-ability|POKEMON|ABILITY`
+
+> The `ABILITY` of the `POKEMON` has been changed or revealed due to a move or ability.
+> This also includes abilities that reveal themselves upon switch-in, like Mold Breaker. 
+> The only move tha does not trigger this message is Skill Swap, so that if you use Skill 
+> Swap between teammates in a doubles or triples battle, the abilities of the two Pokemon 
+> are not revealed to the opponent, similar to its behavior in game.
+
+`|-endability|POKEMON`
+
+> The `POKEMON` has had its ability surpressed, either by a move like Gastro Acid, or 
+> by the effects of Mummy.
 
 `|-transform|POKEMON|SPECIES`
 
-> The Pokemon `POKEMON` has transformed into `SPECIES` by the effect of Transform
+> The Pokemon `POKEMON` has transformed into `SPECIES` by the effect of Transform 
 > or the ability Imposter.
 
 `|-activate|EFFECT`
 
-> A miscellaneous effect has activated. This is triggered whenever an effect could
-> not be better described by one of the other minor messages: for example, healing
-> abilities like Water Absorb simply use `-heal`, and items that are consumed upon
+> A miscellaneous effect has activated. This is triggered whenever an effect could 
+> not be better described by one of the other minor messages: for example, healing 
+> abilities like Water Absorb simply use `-heal`, and items that are consumed upon 
 > use have the `-enditem` message instead.
 
 I'll document all the message types eventually, but for now this should be
