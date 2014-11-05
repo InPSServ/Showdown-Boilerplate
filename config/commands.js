@@ -531,6 +531,10 @@ var commands = exports.commands = {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/litalie.jpg"><br />')
             },
+	mind: function(target, room, user) {
+                    if(!this.canBroadcast()) return;
+                    this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/mind.gif"><br />')
+            },
 	monop: 'monopoly',
 	monopoly: function(target, room, user) {
                     if(!this.canBroadcast()) return;
