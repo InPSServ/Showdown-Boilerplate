@@ -626,7 +626,7 @@ var commands = exports.commands = {
                     if(!this.canBroadcast()) return;
                     this.sendReplyBox('<center><img src="http://107.161.19.92:8000/TCs/bd.jpg"><br />' +
                                       '<font size=3><i><font color=purple><b>Backdoor Access: Félicette (Credit: JD x Félicette)</b></font></i></font><br />' +
-									' People who have purchased her: Chakra, sbet777, MadAsTheHatter, AssaultVestTangela, koikazma, Black Rabbit, hashtag armcannons, nonstopkevn, DavidJ, Félicette, jd, retrofeather, Absolute Maximum, Feeboss, Giantsdms, xVeNoMiiZz, KafkaBlack, Quilavaa, Chakra, Connor the Goodra, and of course: Da Bic Boi. </center>'
+									' People who have purchased her: buttofTheTitanTank, Chakra, sbet777, MadAsTheHatter, AssaultVestTangela, koikazma, Black Rabbit, hashtag armcannons, nonstopkevn, DavidJ, Félicette, jd, retrofeather, Absolute Maximum, Feeboss, Giantsdms, xVeNoMiiZz, KafkaBlack, Quilavaa, Chakra, Connor the Goodra, and of course: Da Bic Boi. </center>'
                                       )
             },
 	jd: function(target, room, user) {
@@ -667,7 +667,8 @@ peppa: function(target, room, user) {
 										'</font><i><font color=purple><b>"Why is it so long!?" 9/10/2014 </b></font></i></font><br />' + 
 										'<img src="http://107.161.19.92:8000/TCs/peppa2.jpg/"> </font><i><font color=purple><b>11/3/2014</b></font></i></font><br />' + 
 										'<img src="http://107.161.19.92:8000/TCs/peppa3.jpg/"> </font><i><font color=purple><b>11/3/2014</b></font></i></font><br />' +
-										'<img src="http://107.161.19.92:8000/TCs/peppa4.jpg/"> </font><i><font color=purple><b>11/3/2014</b></font></i></font><br />'
+										'<img src="http://107.161.19.92:8000/TCs/peppa4.jpg/"> </font><i><font color=purple><b>11/3/2014</b></font></i></font><br />' +
+										'<img src="http://107.161.19.92:8000/TCs/peppa5.png/"> </font><i><font color=purple><b>11/3/2014</b></font></i></font><br />'
                                       )
             },
 	  giant: function(target, room, user) {
