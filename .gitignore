@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /config/*
 /logs/*
 /node_modules
@@ -47,52 +46,3 @@ local_settings.py
 
 pip-log.txt
 
-=======
-/config/*
-/logs/*
-/node_modules
-npm-debug.log
-
-# boilerplate #
-###############
-
-.DS_Store
-
-# editor temp files
-*~
-.idea/
-
-tmp/**/*
-*.lock
-*.DS_Store
-*.swp
-*.out
-*.pyc
-*.pyo
-.installed.cfg
-
-downloads
-build
-dist
-
-# egg related
-develop-eggs
-*.egg-info
-*.egg
-*.EGG
-*.EGG-INFO
-src/*.egg-info
-eggs
-fake-eggs
-
-# django
-local_settings.py
-
-# SCM
-.hg
-.bzr
-.svn
-
-pip-log.txt
-
->>>>>>> parent of 9e6b548... fixed merge conflicts
